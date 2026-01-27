@@ -12,6 +12,13 @@
 }
 
 /* About Text */
+.about-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    min-width: 0; /* Prevent grid overflow */
+}
+
 .about-text h3 {
     color: var(--dark-color);
     font-size: 1.8rem;
@@ -23,6 +30,9 @@
     line-height: 1.8;
     color: var(--text-color);
     margin-bottom: 1.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 /* Education Info */
@@ -96,14 +106,18 @@
 /* About Image */
 .about-image {
     text-align: center;
+    position: relative;
+    min-width: 0; /* Prevent grid overflow */
 }
 
 .about-img {
     width: 100%;
     max-width: 400px;
+    height: auto;
     border-radius: 15px;
     box-shadow: var(--shadow);
     transition: var(--transition);
+    display: block;
 }
 
 .about-img:hover {
@@ -111,7 +125,6 @@
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Skills Container */
 /* Skills Container */
 .skills-container {
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -367,7 +380,77 @@
     width: var(--target-width);
 }
 
-/* Responsive Design */
+/* Mobile Responsive Design - About Section Specific */
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    /* Image appears first on mobile, then text */
+    .about-image {
+        order: -1;
+    }
+    
+    .about-text h3 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .about-text p {
+        font-size: 1rem;
+        line-height: 1.7;
+        text-align: justify;
+        margin-bottom: 1rem;
+    }
+    
+    .about-img {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    .education-info {
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+    
+    .community-engagement {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-content {
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .about-text h3 {
+        font-size: 1.3rem;
+    }
+    
+    .about-text p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .about-img {
+        max-width: 240px;
+    }
+    
+    .education-detail {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .education-status {
+        align-self: flex-start;
+    }
+}
+
+/* Tablet and Medium Screens */
 @media (max-width: 1100px) {
     .progress-grid {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -378,6 +461,7 @@
     }
 }
 
+/* Skills Section Mobile */
 @media (max-width: 768px) {
     .skills-container {
         padding: 2rem;
@@ -398,6 +482,14 @@
     .skill-card {
         padding: 1.5rem;
     }
+    
+    .skills-container h4 {
+        font-size: 1.5rem;
+    }
+    
+    .skills-subtitle {
+        font-size: 1.2rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -406,7 +498,7 @@
     }
     
     .skills-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     
     .skill-card-icon {
@@ -414,8 +506,11 @@
         width: 60px;
         height: 60px;
     }
+    
+    .skill-name i {
+        font-size: 1.1rem;
+    }
 }
-
 
 /* Projects Notice */
 .projects-notice {
@@ -618,17 +713,8 @@
     #viewMoreBtn {
         padding: 0.8rem 2rem;
         font-size: 1rem;
-    }
-}
-
-/* Add to projects.css */
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(20px);
+        width: 90%;
+        max-width: 300px;
+        justify-content: center;
     }
 }

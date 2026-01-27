@@ -57,34 +57,33 @@ class AboutAnimations {
         }
     }
 
-  // Update the animateSkills method in your AboutAnimations class:
-animateSkills() {
-    // Animate progress bars
-    this.skillBars.forEach((bar, index) => {
-        setTimeout(() => {
-            const targetWidth = bar.getAttribute('data-width');
-            if (targetWidth) {
-                bar.style.width = targetWidth;
-                bar.classList.add('animated');
-                
-                // Animate percentage counter
-                const percentageElement = bar.closest('.skill-item').querySelector('.skill-percentage');
-                if (percentageElement) {
-                    this.animateCounter(percentageElement, parseInt(targetWidth));
+    animateSkills() {
+        // Animate progress bars
+        this.skillBars.forEach((bar, index) => {
+            setTimeout(() => {
+                const targetWidth = bar.getAttribute('data-width');
+                if (targetWidth) {
+                    bar.style.width = targetWidth;
+                    bar.classList.add('animated');
+                    
+                    // Animate percentage counter
+                    const percentageElement = bar.closest('.skill-item').querySelector('.skill-percentage');
+                    if (percentageElement) {
+                        this.animateCounter(percentageElement, parseInt(targetWidth));
+                    }
                 }
-            }
-        }, index * 200 + 300);
-    });
+            }, index * 200 + 300);
+        });
 
-    // Animate skill cards with staggered delay
-    const skillCards = document.querySelectorAll('.skill-card');
-    skillCards.forEach((card, index) => {
-        setTimeout(() => {
-            card.style.animation = 'fadeInUp 0.6s ease-out forwards';
-            card.style.opacity = '0';
-        }, index * 150 + 800);
-    });
-}
+        // Animate skill cards with staggered delay
+        const skillCards = document.querySelectorAll('.skill-card');
+        skillCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                card.style.opacity = '0';
+            }, index * 150 + 800);
+        });
+    }
 
     animateCounter(element, target) {
         let current = 0;
@@ -103,35 +102,43 @@ animateSkills() {
 
     setupImageInteractions() {
         if (this.aboutImage) {
-            // Tilt effect on mouse move
-            this.aboutImage.addEventListener('mousemove', (e) => {
-                const rect = this.aboutImage.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateY = (x - centerX) / 25;
-                const rotateX = (centerY - y) / 25;
-                
-                this.aboutImage.style.transform = `
-                    perspective(1000px) 
-                    rotateX(${rotateX}deg) 
-                    rotateY(${rotateY}deg) 
-                    translateY(-10px) 
-                    scale(1.02)
-                `;
-            });
+            // Check if touch device
+            const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+            
+            if (!isTouchDevice) {
+                // Tilt effect on mouse move (desktop only)
+                this.aboutImage.addEventListener('mousemove', (e) => {
+                    const rect = this.aboutImage.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = (x - centerX) / 25;
+                    const rotateX = (centerY - y) / 25;
+                    
+                    this.aboutImage.style.transform = `
+                        perspective(1000px) 
+                        rotateX(${rotateX}deg) 
+                        rotateY(${rotateY}deg) 
+                        translateY(-10px) 
+                        scale(1.02)
+                    `;
+                });
 
-            this.aboutImage.addEventListener('mouseleave', () => {
-                this.aboutImage.style.transform = 'translateY(0) scale(1)';
-                setTimeout(() => {
-                    this.aboutImage.style.transform = '';
-                }, 300);
-            });
+                this.aboutImage.addEventListener('mouseleave', () => {
+                    this.aboutImage.style.transform = 'translateY(0) scale(1)';
+                    setTimeout(() => {
+                        this.aboutImage.style.transform = '';
+                    }, 300);
+                });
+            } else {
+                // Mobile: Add click to enlarge functionality
+                this.aboutImage.style.cursor = 'pointer';
+            }
 
-            // Click to enlarge (optional)
+            // Click to enlarge (works on both mobile and desktop)
             this.aboutImage.addEventListener('click', () => {
                 this.showImageModal();
             });
@@ -153,17 +160,20 @@ animateSkills() {
             z-index: 10000;
             cursor: pointer;
             animation: fadeIn 0.3s ease;
+            padding: 1rem;
+            box-sizing: border-box;
         `;
 
         const img = document.createElement('img');
         img.src = this.aboutImage.src;
         img.alt = this.aboutImage.alt;
         img.style.cssText = `
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 100%;
+            max-height: 90vh;
             border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             animation: scaleIn 0.3s ease;
+            object-fit: contain;
         `;
 
         modal.appendChild(img);
@@ -173,7 +183,9 @@ animateSkills() {
         modal.addEventListener('click', () => {
             modal.style.animation = 'fadeOut 0.3s ease forwards';
             setTimeout(() => {
-                document.body.removeChild(modal);
+                if (modal.parentNode) {
+                    document.body.removeChild(modal);
+                }
             }, 300);
         });
 
@@ -341,12 +353,9 @@ window.updateSkill = (skillName, percentage) => {
     aboutAnimations.updateSkill(skillName, percentage);
 };
 
-
-// View More Projects functionality
 // View More Projects functionality - SINGLE INSTANCE ONLY
 document.addEventListener('DOMContentLoaded', function() {
     const viewMoreBtn = document.getElementById('viewMoreBtn');
-    const projectGrid = document.querySelector('.projects-grid');
     let showingAll = false; // Single source of truth
     
     // Function to get currently visible/filtered projects
