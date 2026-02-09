@@ -14,6 +14,7 @@
 
 /* About Text */
 .about-text {
+<<<<<<< HEAD
     min-width: 0;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -21,6 +22,12 @@
     -webkit-hyphens: none;
     -moz-hyphens: none;
     -ms-hyphens: none;
+=======
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    min-width: 0; /* Prevent grid overflow */
+>>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
 }
 
 .about-text h3 {
@@ -35,8 +42,14 @@
     line-height: 1.8;
     color: var(--text-color);
     margin-bottom: 1.5rem;
+<<<<<<< HEAD
     word-break: normal;
     overflow-wrap: break-word;
+=======
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+>>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
 }
 
 /* Education Info */
@@ -110,7 +123,12 @@
 /* About Image */
 .about-image {
     text-align: center;
+<<<<<<< HEAD
     min-width: 0;
+=======
+    position: relative;
+    min-width: 0; /* Prevent grid overflow */
+>>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
 }
 
 .about-img {
@@ -401,6 +419,146 @@
     }
 }
 
+<<<<<<< HEAD
+=======
+/* Progress Bar Animation Classes */
+.skill-progress.animated {
+    width: var(--target-width);
+}
+
+/* Mobile Responsive Design - About Section Specific */
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    /* Image appears first on mobile, then text */
+    .about-image {
+        order: -1;
+    }
+    
+    .about-text h3 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .about-text p {
+        font-size: 1rem;
+        line-height: 1.7;
+        text-align: justify;
+        margin-bottom: 1rem;
+    }
+    
+    .about-img {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    .education-info {
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+    
+    .community-engagement {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-content {
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .about-text h3 {
+        font-size: 1.3rem;
+    }
+    
+    .about-text p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .about-img {
+        max-width: 240px;
+    }
+    
+    .education-detail {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .education-status {
+        align-self: flex-start;
+    }
+}
+
+/* Tablet and Medium Screens */
+@media (max-width: 1100px) {
+    .progress-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    .skill-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Skills Section Mobile */
+@media (max-width: 768px) {
+    .skills-container {
+        padding: 2rem;
+    }
+    
+    .progress-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .skill-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .skill-name {
+        font-size: 1rem;
+    }
+    
+    .skill-card {
+        padding: 1.5rem;
+    }
+    
+    .skills-container h4 {
+        font-size: 1.5rem;
+    }
+    
+    .skills-subtitle {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .skills-container {
+        padding: 1.5rem;
+    }
+    
+    .skills-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .skill-card-icon {
+        font-size: 2rem;
+        width: 60px;
+        height: 60px;
+    }
+    
+    .skill-name i {
+        font-size: 1.1rem;
+    }
+}
+
+>>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
 /* Projects Notice */
 .projects-notice {
     background: linear-gradient(135deg, #fff3cd 0%, #fff8e1 100%);
@@ -676,6 +834,7 @@
     #viewMoreBtn {
         padding: 0.8rem 2rem;
         font-size: 1rem;
+<<<<<<< HEAD
     }
 }
 
@@ -741,5 +900,10 @@
     
     .about-img {
         max-width: 250px;
+=======
+        width: 90%;
+        max-width: 300px;
+        justify-content: center;
+>>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
     }
 }
