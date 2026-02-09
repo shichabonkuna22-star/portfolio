@@ -70,7 +70,6 @@ class AboutAnimations {
     }
 
     animateSkills() {
-<<<<<<< HEAD
         // Animate progress bars with staggered delay
         this.skillBars.forEach((bar, index) => {
             const targetWidth = bar.getAttribute('data-width');
@@ -97,39 +96,16 @@ class AboutAnimations {
                             this.animateCounter(percentageElement, targetValue);
                         }
                     }
-                }, index * 200); // 200ms stagger between each bar
+                }, index * 200 + 300); // 300ms initial delay, then 200ms stagger
             }
-=======
-        // Animate progress bars
-        this.skillBars.forEach((bar, index) => {
-            setTimeout(() => {
-                const targetWidth = bar.getAttribute('data-width');
-                if (targetWidth) {
-                    bar.style.width = targetWidth;
-                    bar.classList.add('animated');
-                    
-                    // Animate percentage counter
-                    const percentageElement = bar.closest('.skill-item').querySelector('.skill-percentage');
-                    if (percentageElement) {
-                        this.animateCounter(percentageElement, parseInt(targetWidth));
-                    }
-                }
-            }, index * 200 + 300);
->>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
         });
 
         // Animate skill cards with staggered delay
         const skillCards = document.querySelectorAll('.skill-card');
         skillCards.forEach((card, index) => {
             setTimeout(() => {
-<<<<<<< HEAD
                 card.classList.add('animate');
-            }, (index * 150) + 800); // Start after progress bars
-=======
-                card.style.animation = 'fadeInUp 0.6s ease-out forwards';
-                card.style.opacity = '0';
-            }, index * 150 + 800);
->>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
+            }, index * 150 + 800); // Start after progress bars
         });
     }
 
@@ -153,82 +129,48 @@ class AboutAnimations {
     }
 
     setupImageInteractions() {
-<<<<<<< HEAD
         if (!this.aboutImage) return;
 
-        // Tilt effect on mouse move
-        this.aboutImage.addEventListener('mousemove', (e) => {
-            const rect = this.aboutImage.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateY = (x - centerX) / 25;
-            const rotateX = (centerY - y) / 25;
-            
-            this.aboutImage.style.transform = `
-                perspective(1000px) 
-                rotateX(${rotateX}deg) 
-                rotateY(${rotateY}deg) 
-                translateY(-10px) 
-                scale(1.02)
-            `;
-        });
+        // Check if touch device
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+        
+        if (!isTouchDevice) {
+            // Tilt effect on mouse move (desktop only)
+            this.aboutImage.addEventListener('mousemove', (e) => {
+                const rect = this.aboutImage.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateY = (x - centerX) / 25;
+                const rotateX = (centerY - y) / 25;
+                
+                this.aboutImage.style.transform = `
+                    perspective(1000px) 
+                    rotateX(${rotateX}deg) 
+                    rotateY(${rotateY}deg) 
+                    translateY(-10px) 
+                    scale(1.02)
+                `;
+            });
 
-        this.aboutImage.addEventListener('mouseleave', () => {
-            this.aboutImage.style.transform = '';
-        });
+            this.aboutImage.addEventListener('mouseleave', () => {
+                this.aboutImage.style.transform = 'translateY(0) scale(1)';
+                setTimeout(() => {
+                    this.aboutImage.style.transform = '';
+                }, 300);
+            });
+        } else {
+            // Mobile: Add click to enlarge functionality
+            this.aboutImage.style.cursor = 'pointer';
+        }
 
-        // Click to enlarge
+        // Click to enlarge (works on both mobile and desktop)
         this.aboutImage.addEventListener('click', () => {
             this.showImageModal();
         });
-=======
-        if (this.aboutImage) {
-            // Check if touch device
-            const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-            
-            if (!isTouchDevice) {
-                // Tilt effect on mouse move (desktop only)
-                this.aboutImage.addEventListener('mousemove', (e) => {
-                    const rect = this.aboutImage.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    const rotateY = (x - centerX) / 25;
-                    const rotateX = (centerY - y) / 25;
-                    
-                    this.aboutImage.style.transform = `
-                        perspective(1000px) 
-                        rotateX(${rotateX}deg) 
-                        rotateY(${rotateY}deg) 
-                        translateY(-10px) 
-                        scale(1.02)
-                    `;
-                });
-
-                this.aboutImage.addEventListener('mouseleave', () => {
-                    this.aboutImage.style.transform = 'translateY(0) scale(1)';
-                    setTimeout(() => {
-                        this.aboutImage.style.transform = '';
-                    }, 300);
-                });
-            } else {
-                // Mobile: Add click to enlarge functionality
-                this.aboutImage.style.cursor = 'pointer';
-            }
-
-            // Click to enlarge (works on both mobile and desktop)
-            this.aboutImage.addEventListener('click', () => {
-                this.showImageModal();
-            });
-        }
->>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
     }
 
     showImageModal() {
