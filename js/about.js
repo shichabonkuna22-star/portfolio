@@ -4,7 +4,7 @@ class AboutAnimations {
         this.skillItems = document.querySelectorAll('.skill-item');
         this.skillBars = document.querySelectorAll('.skill-progress');
         this.aboutImage = document.querySelector('.about-img');
-        this.observer = null;
+        this.hasAnimated = false; // Prevent multiple animations
         this.init();
     }
 
@@ -18,10 +18,12 @@ class AboutAnimations {
     }
 
     createFloatingElements() {
+        const aboutSection = document.querySelector('.about');
+        if (!aboutSection) return;
+        
         const floatingContainer = document.createElement('div');
         floatingContainer.className = 'about-floating-elements';
         
-        // Create floating shapes
         const shapes = [
             { className: 'about-floating about-floating-1', emoji: '💻' },
             { className: 'about-floating about-floating-2', emoji: '🚀' },
@@ -35,107 +37,129 @@ class AboutAnimations {
             floatingContainer.appendChild(element);
         });
 
-        document.querySelector('.about').appendChild(floatingContainer);
+        aboutSection.appendChild(floatingContainer);
     }
 
     setupSkillAnimations() {
-        this.observer = new IntersectionObserver((entries) => {
+        // Use IntersectionObserver to detect when skills section is visible
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2 // Trigger when 20% of the element is visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && !this.hasAnimated) {
+                    this.hasAnimated = true;
                     this.animateSkills();
-                    this.observer.unobserve(entry.target);
+                    observer.unobserve(entry.target);
                 }
             });
-        }, { 
-            threshold: 0.3,
-            rootMargin: '-50px'
-        });
+        }, observerOptions);
 
+        // Observe the skills container or about section
+        const skillsContainer = document.querySelector('.skills-container');
         const aboutSection = document.getElementById('about');
-        if (aboutSection) {
-            this.observer.observe(aboutSection);
+        
+        if (skillsContainer) {
+            observer.observe(skillsContainer);
+        } else if (aboutSection) {
+            observer.observe(aboutSection);
         }
     }
 
-  // Update the animateSkills method in your AboutAnimations class:
-animateSkills() {
-    // Animate progress bars
-    this.skillBars.forEach((bar, index) => {
-        setTimeout(() => {
+    animateSkills() {
+        // Animate progress bars with staggered delay
+        this.skillBars.forEach((bar, index) => {
             const targetWidth = bar.getAttribute('data-width');
+            
             if (targetWidth) {
-                bar.style.width = targetWidth;
-                bar.classList.add('animated');
-                
-                // Animate percentage counter
-                const percentageElement = bar.closest('.skill-item').querySelector('.skill-percentage');
-                if (percentageElement) {
-                    this.animateCounter(percentageElement, parseInt(targetWidth));
-                }
+                // Small delay for staggered effect
+                setTimeout(() => {
+                    // Set CSS custom property for the target width
+                    bar.style.setProperty('--target-width', targetWidth);
+                    
+                    // Add the animated class to trigger CSS transition
+                    bar.classList.add('animated');
+                    
+                    // Directly set width as fallback/addition to CSS class
+                    bar.style.width = targetWidth;
+                    
+                    // Animate the percentage counter
+                    const skillItem = bar.closest('.skill-item');
+                    if (skillItem) {
+                        const percentageElement = skillItem.querySelector('.skill-percentage');
+                        if (percentageElement) {
+                            // Extract number from target width (e.g., "85%" -> 85)
+                            const targetValue = parseInt(targetWidth);
+                            this.animateCounter(percentageElement, targetValue);
+                        }
+                    }
+                }, index * 200); // 200ms stagger between each bar
             }
-        }, index * 200 + 300);
-    });
+        });
 
-    // Animate skill cards with staggered delay
-    const skillCards = document.querySelectorAll('.skill-card');
-    skillCards.forEach((card, index) => {
-        setTimeout(() => {
-            card.style.animation = 'fadeInUp 0.6s ease-out forwards';
-            card.style.opacity = '0';
-        }, index * 150 + 800);
-    });
-}
+        // Animate skill cards with staggered delay
+        const skillCards = document.querySelectorAll('.skill-card');
+        skillCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('animate');
+            }, (index * 150) + 800); // Start after progress bars
+        });
+    }
 
     animateCounter(element, target) {
         let current = 0;
-        const increment = target / 30; // Adjust speed
         const duration = 1500; // 1.5 seconds
+        const increment = target / (duration / 16); // 60fps
         
-        const timer = setInterval(() => {
+        const updateCounter = () => {
             current += increment;
             if (current >= target) {
                 current = target;
-                clearInterval(timer);
+                element.textContent = `${Math.round(current)}%`;
+                return;
             }
             element.textContent = `${Math.round(current)}%`;
-        }, duration / (target / increment));
+            requestAnimationFrame(updateCounter);
+        };
+        
+        requestAnimationFrame(updateCounter);
     }
 
     setupImageInteractions() {
-        if (this.aboutImage) {
-            // Tilt effect on mouse move
-            this.aboutImage.addEventListener('mousemove', (e) => {
-                const rect = this.aboutImage.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateY = (x - centerX) / 25;
-                const rotateX = (centerY - y) / 25;
-                
-                this.aboutImage.style.transform = `
-                    perspective(1000px) 
-                    rotateX(${rotateX}deg) 
-                    rotateY(${rotateY}deg) 
-                    translateY(-10px) 
-                    scale(1.02)
-                `;
-            });
+        if (!this.aboutImage) return;
 
-            this.aboutImage.addEventListener('mouseleave', () => {
-                this.aboutImage.style.transform = 'translateY(0) scale(1)';
-                setTimeout(() => {
-                    this.aboutImage.style.transform = '';
-                }, 300);
-            });
+        // Tilt effect on mouse move
+        this.aboutImage.addEventListener('mousemove', (e) => {
+            const rect = this.aboutImage.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateY = (x - centerX) / 25;
+            const rotateX = (centerY - y) / 25;
+            
+            this.aboutImage.style.transform = `
+                perspective(1000px) 
+                rotateX(${rotateX}deg) 
+                rotateY(${rotateY}deg) 
+                translateY(-10px) 
+                scale(1.02)
+            `;
+        });
 
-            // Click to enlarge (optional)
-            this.aboutImage.addEventListener('click', () => {
-                this.showImageModal();
-            });
-        }
+        this.aboutImage.addEventListener('mouseleave', () => {
+            this.aboutImage.style.transform = '';
+        });
+
+        // Click to enlarge
+        this.aboutImage.addEventListener('click', () => {
+            this.showImageModal();
+        });
     }
 
     showImageModal() {
@@ -169,38 +193,38 @@ animateSkills() {
         modal.appendChild(img);
         document.body.appendChild(modal);
 
-        // Close modal on click
         modal.addEventListener('click', () => {
             modal.style.animation = 'fadeOut 0.3s ease forwards';
             setTimeout(() => {
-                document.body.removeChild(modal);
+                if (modal.parentNode) {
+                    document.body.removeChild(modal);
+                }
             }, 300);
         });
 
-        // Add CSS for animations
         this.addModalStyles();
     }
 
     addModalStyles() {
-        if (!document.querySelector('#modal-styles')) {
-            const style = document.createElement('style');
-            style.id = 'modal-styles';
-            style.textContent = `
-                @keyframes fadeIn {
-                    from { opacity: 0; }
-                    to { opacity: 1; }
-                }
-                @keyframes fadeOut {
-                    from { opacity: 1; }
-                    to { opacity: 0; }
-                }
-                @keyframes scaleIn {
-                    from { transform: scale(0.8); opacity: 0; }
-                    to { transform: scale(1); opacity: 1; }
-                }
-            `;
-            document.head.appendChild(style);
-        }
+        if (document.querySelector('#modal-styles')) return;
+        
+        const style = document.createElement('style');
+        style.id = 'modal-styles';
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            @keyframes scaleIn {
+                from { transform: scale(0.8); opacity: 0; }
+                to { transform: scale(1); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
     }
 
     setupScrollAnimations() {
@@ -269,16 +293,20 @@ animateSkills() {
         const skillItems = document.querySelectorAll('.skill-item');
         skillItems.forEach(item => {
             const nameElement = item.querySelector('.skill-name');
-            if (nameElement.textContent.includes(skillName)) {
+            if (nameElement && nameElement.textContent.includes(skillName)) {
                 const progressBar = item.querySelector('.skill-progress');
                 const percentageElement = item.querySelector('.skill-percentage');
                 
-                progressBar.setAttribute('data-width', `${newPercentage}%`);
-                percentageElement.textContent = `${newPercentage}%`;
+                if (progressBar) {
+                    progressBar.setAttribute('data-width', `${newPercentage}%`);
+                    // If already animated, update immediately
+                    if (progressBar.classList.contains('animated')) {
+                        progressBar.style.width = `${newPercentage}%`;
+                    }
+                }
                 
-                // Re-animate if in view
-                if (item.classList.contains('animate')) {
-                    progressBar.style.width = `${newPercentage}%`;
+                if (percentageElement) {
+                    percentageElement.textContent = `${newPercentage}%`;
                 }
             }
         });
@@ -341,8 +369,6 @@ window.updateSkill = (skillName, percentage) => {
     aboutAnimations.updateSkill(skillName, percentage);
 };
 
-
-// View More Projects functionality
 // View More Projects functionality - SINGLE INSTANCE ONLY
 document.addEventListener('DOMContentLoaded', function() {
     const viewMoreBtn = document.getElementById('viewMoreBtn');
