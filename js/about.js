@@ -23,21 +23,53 @@ class AboutAnimations {
         
         const floatingContainer = document.createElement('div');
         floatingContainer.className = 'about-floating-elements';
+        floatingContainer.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        `;
         
         const shapes = [
-            { className: 'about-floating about-floating-1', emoji: '💻' },
-            { className: 'about-floating about-floating-2', emoji: '🚀' },
-            { className: 'about-floating about-floating-3', emoji: '🌟' }
+            { className: 'about-floating about-floating-1', emoji: '💻', top: '20%', left: '10%' },
+            { className: 'about-floating about-floating-2', emoji: '🚀', top: '60%', left: '80%' },
+            { className: 'about-floating about-floating-3', emoji: '🌟', top: '80%', left: '15%' }
         ];
 
         shapes.forEach(shape => {
             const element = document.createElement('div');
             element.className = shape.className;
-            element.innerHTML = `<span style="font-size: 2rem; opacity: 0.1;">${shape.emoji}</span>`;
+            element.style.cssText = `
+                position: absolute;
+                top: ${shape.top};
+                left: ${shape.left};
+                font-size: 2rem;
+                opacity: 0.1;
+                animation: float 6s ease-in-out infinite;
+            `;
+            element.innerHTML = shape.emoji;
             floatingContainer.appendChild(element);
         });
 
+        aboutSection.style.position = 'relative';
         aboutSection.appendChild(floatingContainer);
+        
+        // Add float animation
+        if (!document.querySelector('#float-animation')) {
+            const style = document.createElement('style');
+            style.id = 'float-animation';
+            style.textContent = `
+                @keyframes float {
+                    0%, 100% { transform: translateY(0) rotate(0deg); }
+                    50% { transform: translateY(-20px) rotate(5deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
     }
 
     setupSkillAnimations() {
@@ -70,21 +102,22 @@ class AboutAnimations {
     }
 
     animateSkills() {
-        // Animate progress bars with staggered delay
+        // Animate progress bars with staggered delay - FIXED
         this.skillBars.forEach((bar, index) => {
-            const targetWidth = bar.getAttribute('data-width');
-            
-            if (targetWidth) {
-                // Small delay for staggered effect
-                setTimeout(() => {
+            setTimeout(() => {
+                const targetWidth = bar.getAttribute('data-width');
+                
+                if (targetWidth) {
                     // Set CSS custom property for the target width
                     bar.style.setProperty('--target-width', targetWidth);
                     
                     // Add the animated class to trigger CSS transition
                     bar.classList.add('animated');
                     
-                    // Directly set width as fallback/addition to CSS class
-                    bar.style.width = targetWidth;
+                    // FIX: Use setTimeout to ensure CSS transition triggers
+                    setTimeout(() => {
+                        bar.style.width = targetWidth;
+                    }, 10);
                     
                     // Animate the percentage counter
                     const skillItem = bar.closest('.skill-item');
@@ -96,8 +129,8 @@ class AboutAnimations {
                             this.animateCounter(percentageElement, targetValue);
                         }
                     }
-                }, index * 200 + 300); // 300ms initial delay, then 200ms stagger
-            }
+                }
+            }, index * 200 + 300); // 300ms initial delay, then 200ms stagger
         });
 
         // Animate skill cards with staggered delay
@@ -175,6 +208,7 @@ class AboutAnimations {
 
     showImageModal() {
         const modal = document.createElement('div');
+        modal.className = 'image-modal';
         modal.style.cssText = `
             position: fixed;
             top: 0;
@@ -313,6 +347,7 @@ class AboutAnimations {
                 
                 if (progressBar) {
                     progressBar.setAttribute('data-width', `${newPercentage}%`);
+                    progressBar.style.setProperty('--target-width', `${newPercentage}%`);
                     // If already animated, update immediately
                     if (progressBar.classList.contains('animated')) {
                         progressBar.style.width = `${newPercentage}%`;
@@ -496,4 +531,93 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(updateView, 50);
         });
     });
+});
+
+// Mobile Features Toggle Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const featureToggles = document.querySelectorAll('.features-toggle');
+    
+    featureToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const featuresContent = this.closest('.project-features').querySelector('.features-content');
+            const isExpanded = featuresContent.classList.contains('expanded');
+            
+            // Toggle expanded class
+            featuresContent.classList.toggle('expanded');
+            this.classList.toggle('expanded');
+            
+            // Update ARIA attribute
+            this.setAttribute('aria-expanded', !isExpanded);
+            
+            // Update icon
+            const icon = this.querySelector('i');
+            if (isExpanded) {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        });
+    });
+    
+    // Auto-expand features on desktop
+    function handleResponsiveFeatures() {
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const allFeaturesContent = document.querySelectorAll('.features-content');
+        const allToggles = document.querySelectorAll('.features-toggle');
+        
+        if (!isMobile) {
+            // Desktop: expand all
+            allFeaturesContent.forEach(content => {
+                content.classList.add('expanded');
+                content.style.maxHeight = 'none';
+                content.style.opacity = '1';
+            });
+            allToggles.forEach(toggle => {
+                toggle.style.display = 'none';
+            });
+        } else {
+            // Mobile: collapse all
+            allFeaturesContent.forEach(content => {
+                content.classList.remove('expanded');
+                content.style.maxHeight = '0';
+                content.style.opacity = '0';
+            });
+            allToggles.forEach(toggle => {
+                toggle.style.display = 'block';
+                const icon = toggle.querySelector('i');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            });
+        }
+    }
+    
+    // Initial setup
+    handleResponsiveFeatures();
+    
+    // Update on resize
+    window.addEventListener('resize', handleResponsiveFeatures);
+});
+
+// Fix for progress bars - ensure they animate on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Force reflow to trigger animation
+    const skillsContainer = document.querySelector('.skills-container');
+    if (skillsContainer) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Trigger skill animations
+                    const aboutAnimations = new AboutAnimations();
+                    setTimeout(() => {
+                        aboutAnimations.animateSkills();
+                    }, 500);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(skillsContainer);
+    }
 });
