@@ -32,7 +32,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="images/logo-1.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/logo-1.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo-1.png">
-    <link rel="apple-touch-icon" href="images/logo-1.jpeg">
+    <link rel="apple-touch-icon" href="images/logo-1.png">
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
@@ -77,19 +77,24 @@
     </nav>
 
     <!-- Home Section -->
-<!-- Home Section -->
 <section id="home" class="home">
     <div class="container">
         <div class="home-content">
             <h1>Hello, I'm <span class="highlight">SHICHABO</span></h1>
-            <p class="intro-text">ICT Graduate | Full-Stack Developer | Seeking Internships, Entry-Level & Junior Software Developer Roles</p>
+            <p class="intro-text">ICT Graduate | Full-Stack Developer | Open to Internships & Junior Software Roles</p>
             <div class="tech-stack">
-                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Python</span>
                 <span class="tech-tag">ASP.NET MVC</span>
                 <span class="tech-tag">C#</span>
                 <span class="tech-tag">Azure</span>
+
                 <span class="tech-tag">Postgre</span>
                 <span class="tech-tag">SQL Server</span>
+                                                <span class="tech-tag">Git/GitHub</span>
+                                                                                                <span class="tech-tag">Basic CI/CD</span>
+                                                                                                <span class="tech-tag">Basic DevOps</span>
+
+
             </div>
             <div class="home-btns">
                 <a href="#projects" class="btn btn-primary">View My Projects</a>
@@ -123,8 +128,6 @@
 
 
 <!-- About Section -->
-<!-- About Section -->
-<!-- About Section -->
 <section id="about" class="about">
     <div class="container">
         <h2 class="section-title">About Me</h2>
@@ -132,7 +135,7 @@
             <!-- Left Column: Information -->
            <div class="about-text">
     <h3>My Journey</h3>
-    <p>I'm an ICT Graduate & Junior Software Developer who has designed, built, and deployed more than 15 production-ready full-stack applications. I leverage C#, Python, and ASP.NET MVC to create scalable solutions deployed on Azure, Oracle Cloud, Render, implementing basic CI/CD pipelines that streamline development. My experience across the SDLC—from requirements gathering to testing and deployment—ensures I deliver reliable, maintainable code that solves real business problems.</p>
+    <p>I'm an ICT Graduate & Junior Software Developer who has designed, built, and deployed more than 15 production-ready full-stack applications. <br>  I leverage C#, Python, and ASP.NET MVC to create scalable solutions deployed on Azure, Oracle Cloud, Render, implementing basic CI/CD pipelines that streamline development.<br> My experience across the SDLC—from requirements gathering to testing and deployment—ensures I deliver reliable, maintainable code that solves real business problems.</p>
 </div>
 
             <!-- Right Column: Image -->
@@ -140,245 +143,6 @@
                 <img src="images/home-1.jpeg" alt="Sechabo About" class="about-img">
             </div>
         </div>
-
-
-
-<!-- Projects Section -->
-<section id="projects" class="projects">
-    <div class="container">
-        <h2 class="section-title">My Projects</h2>
-        
-        <!-- Loading Notice -->
-        <div class="projects-notice">
-            <div class="notice-content">
-                <i class="fas fa-info-circle"></i>
-                <div class="notice-text">
-                    <strong>Note:</strong> Applications may take 40–60 seconds to load due to inactivity. 
-                    They are fully functional, connected to live databases, ready for testing, and worth the wait.
-                </div>
-            </div>
-        </div>
-        
-        <div class="projects-filter">
-            <button class="filter-btn active" data-filter="all">Projects</button>
-        </div>
-
-        <div class="projects-grid">
-            <!-- Baker's Lovers Project -->
-            <div class="project-card visible" data-category="ecommerce,cloud">
-                <div class="project-image">
-                    <img src="images/bakers-lovers-Projects.png" alt="Baker's Lovers E-Commerce">
-                    <div class="project-overlay">
-                        <a href="https://bakers-lovers.onrender.com" class="project-link" title="Live Demo">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                        <a href="https://bakers-lovers.onrender.com" class="project-link" title="View Source Code">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h3>Baker's Lovers E-Commerce</h3>
-                    <p>Full-stack bakery platform with Flask & PostgreSQL featuring Stripe payments, inventory management, and admin analytics.</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>PostgreSQL</span>
-                        <span>Stripe API</span>
-                        <span>Flask</span>
-                        <span>Bootstrap</span>
-                    </div>
-                    <div class="project-features">
-                        <h4>Key Features:</h4>
-                        <ul>
-                            <li>Admin & customer roles</li>
-                            <li>Product catalog with images</li>
-                            <li>AJAX shopping cart</li>
-                            <li>Stripe payment (ZAR)</li>
-                            <li>Sales analytics dashboard</li>
-                        </ul>
-                    </div>
-                    <div class="project-status">
-                        <span class="status-badge completed">E-Commerce</span>
-                        <span class="status-badge deployed">Live on Render</span>
-                    </div>
-                </div>
-            </div>
-
-              <!-- Nkuna Bank Project -->
-            <div class="project-card visible" data-category="fintech,cloud">
-                <div class="project-image">
-                    <img src="images/nkuna-bank-project.png" alt="Nkuna Bank Digital Banking">
-                    <div class="project-overlay">
-                        <a href="https://nkuna-banking.onrender.com/" class="project-link" title="Live Demo">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                        <a href="https://nkuna-banking.onrender.com/" class="project-link" title="View Source Code">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h3>Nkuna Bank</h3>
-                    <p>Digital banking platform with real-time transactions, automated fees, and live customer support.</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>PostgreSQL</span>
-                        <span>JavaScript</span>
-                        <span>SocketIO</span>
-                        <span>Bootstrap</span>
-                    </div>
-                    <div class="project-features">
-                       <h4>Key Features</h4>
-<ul>
-    <li><strong>Transaction Reversal</strong> — Undo transfers within 15 minutes</li>
-    <li><strong>Live Chat Support</strong> — Real-time customer assistance</li>
-      <li><strong>Utility Payments</strong> — Pay for airtime and data</li>
-    <li><strong>Financial Goals</strong> — Create savings targets with progress tracking</li>
-
-</ul>
-                    </div>
-                    <div class="project-status">
-                        <span class="status-badge completed">FinTech</span>
-                        <span class="status-badge deployed">Live on Render</span>
-                    </div>
-                </div>
-            </div>
-         
-
-            <!-- SAPS-EDOCKET Project -->
-            <div class="project-card visible" data-category="security,cloud">
-                <div class="project-image">
-                    <img src="images/saps-edocket-dashboard.png" alt="SAPS-EDOCKET Case Management">
-                    <div class="project-overlay">
-                        <a href="https://saps-edocket.onrender.com" class="project-link" title="Live Demo">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                        <a href="https://saps-edocket.onrender.com" class="project-link" title="View Source Code">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h3>SAPS-EDOCKET</h3>
-                    <p>Secure digital docket management system for SAPS with automated case tracking and compliance audit trails.</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>PostgreSQL</span>
-                        <span>JavaScript</span>
-                    </div>
-                  <div class="project-features">
-    <h4>Key Features</h4>
-    <ul>
-<li><strong>Role-Based Access Control</strong> — Officers access only their assigned cases; Supervisors and Admins have full system visibility</li>        <li><strong>Case Lifecycle Management</strong> — End-to-end tracking from Open → Investigating → In Court → Closed → Archived</li>
-        <li><strong>Suspect Database</strong> — SA ID-linked profiles with photo upload and multi-case association</li>
-        <li><strong>Real-Time Duplicate Detection</strong> — Instant flagging of existing suspects by 13-digit ID number</li>
-        <li><strong>Audit Trail Logging</strong> — Timestamped case updates with officer attribution and change history</li>
-    </ul>
-</div>
-                    <div class="project-status">
-                        <span class="status-badge completed">LAW</span>
-                        <span class="status-badge deployed">Live on Render</span>
-                    </div>
-                </div>
-            </div>
-
-               <!-- UniStay Project (Hidden by default)-->
-            <div class="project-card hidden" data-category="ecommerce,cloud">
-                <div class="project-image">
-                    <img src="images/unistay-project.png" alt="UniStay Student Accommodation">
-                    <div class="project-overlay">
-                        <a href="https://campus-stay-accommodation.onrender.com/" class="project-link" title="Live Demo">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                        <a href="https://campus-stay-accommodation.onrender.com/" class="project-link" title="View Source Code">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h3>Campus Stay</h3>
-                    <p>Student housing booking system with real-time occupancy tracking, Stripe payments, and role-based dashboards.</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>PostgreSQL</span>
-                        <span>Stripe API</span>
-                        <span>Cloudinary</span>
-                        <span>Gunicorn</span>
-                    </div>
-                    <div class="project-features">
-    <h4>Key Features</h4>
-    <ul>
-        <li><strong>Real-Time Occupancy Tracking</strong> — Automatic deactivation when capacity is reached</li>
-        <li><strong>Semester/Annual Bookings</strong> — Flexible 5 or 10-month terms with Stripe payments</li>
-        <li><strong>Verified Reviews Only</strong> — Rating system restricted to paid bookings</li>
-        <li><strong>Cloudinary Image Hosting</strong> — Secure property photo management with CDN delivery</li>
-        <li><strong>Admin Dashboard</strong> — Revenue analytics, bulk operations, and user management</li>
-    </ul>
-</div>
-                    <div class="project-status">
-                        <span class="status-badge completed">Property</span>
-                        <span class="status-badge deployed">Live on Render</span>
-                    </div>
-                </div>
-            </div>
-
-          
-            <!-- Nkuna Burial Society Project (Hidden by default) -->
-            <div class="project-card hidden" data-category="fintech,cloud">
-                <div class="project-image">
-                    <img src="images/nkuna-burial-project.png" alt="Nkuna Burial Society">
-                    <div class="project-overlay">
-                        <a href="https://nkuna-burial-platform.onrender.com/" class="project-link" title="Live Demo">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                        <a href="https://nkuna-burial-platform.onrender.com/" class="project-link" title="View Source Code">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h3>Nkuna Burial Society</h3>
-                    <p>Funeral insurance with instant claim processing, age-based premium calculations, and secure virtual wallet transactions</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>PostgreSQL</span>
-                        <span>JavaScript</span>
-                        <span>ORM</span>
-                        <span>Bootstrap</span>
-                    </div>
-                   <div class="project-features">
-    <h4>Key Features</h4>
-    <ul>
-        <li><strong>Policy Management</strong> — Create and manage multiple burial coverage tiers</li>
-              <li><strong>Multi-Member Coverage</strong> — Up to 15 members per policy</li>
-        <li><strong>Age-Based Premiums</strong> — Dynamic pricing (R50/R100/R150) based on member age bands</li>
-        <li><strong>Instant Claim Processing</strong> — Auto-approved claims with immediate payout calculation</li>
-        <li><strong>Secure Document Storage</strong> — ID and death certificates stored in PostgreSQL</li>
-    </ul>
-</div>
-                    <div class="project-status">
-                        <span class="status-badge completed">Insurance/FinTech</span>
-                        <span class="status-badge deployed">Live on Render</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- View More Button -->
-        <div class="view-more-container">
-            <button id="viewMoreBtn" class="btn btn-secondary">
-                <i class="fas fa-arrow-down"></i> View More Projects (2 More)
-            </button>
-        </div>
-
-        <!-- Call to Action -->
-        <div class="projects-cta">
-            <p>All projects are live applications with real databases - click the demo links to experience them!</p>
-            <a href="#contact" class="btn btn-primary">Get In Touch</a>
-        </div>
-    </div>
-</section>
-
 
 
         
@@ -562,7 +326,246 @@
 
    <!-- Projects Section -->
 <!-- Projects Section -->
+<!-- Projects Section -->
+<section id="projects" class="projects">
+    <div class="container">
+        <h2 class="section-title">My Projects</h2>
+        
+        <!-- Loading Notice -->
+        <div class="projects-notice">
+            <div class="notice-content">
+                <i class="fas fa-info-circle"></i>
+                <div class="notice-text">
+                    <strong>Note:</strong> Applications may take 40–60 seconds to load due to inactivity. 
+                    They are fully functional, connected to live databases, ready for testing, and worth the wait.
+                </div>
+            </div>
+        </div>
+        
+        <div class="projects-filter">
+            <button class="filter-btn active" data-filter="all">Projects</button>
+        </div>
 
+        <div class="projects-grid">
+            <!-- Baker's Lovers Project -->
+            <div class="project-card visible" data-category="ecommerce,cloud">
+                <div class="project-image">
+                    <img src="images/bakers-lovers-Projects.png" alt="Baker's Lovers E-Commerce">
+                    <div class="project-overlay">
+                        <a href="https://bakers-lovers.onrender.com" class="project-link" title="Live Demo">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://bakers-lovers.onrender.com" class="project-link" title="View Source Code">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Baker's Lovers E-Commerce</h3>
+                    <p>Full-stack bakery platform with Flask & PostgreSQL featuring Stripe payments, inventory management, and admin analytics.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>PostgreSQL</span>
+                        <span>Stripe API</span>
+                        <span>Flask</span>
+                        <span>Bootstrap</span>
+                    </div>
+                    <div class="project-features">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li>Admin & customer roles</li>
+                            <li>Product catalog with images</li>
+                            <li>AJAX shopping cart</li>
+                            <li>Stripe payment (ZAR)</li>
+                            <li>Sales analytics dashboard</li>
+                        </ul>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-badge completed">e-COMMERCE</span>
+                        <span class="status-badge deployed">Live on Render</span>
+                    </div>
+                </div>
+            </div>
+
+           
+
+              <!-- Nkuna Bank Project (Hidden by default) -->
+            <div class="project-card visible" data-category="fintech,cloud">
+                <div class="project-image">
+                    <img src="images/nkuna-bank-project.png" alt="Nkuna Bank Digital Banking">
+                    <div class="project-overlay">
+                        <a href="https://nkuna-banking.onrender.com" class="project-link" title="Live Demo">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://nkuna-banking.onrender.com" class="project-link" title="View Source Code">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Nkuna Bank</h3>
+                    <p>digital banking platform with real-time transactions, automated fee processing, and live customer support.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>PostgreSQL</span>
+                        <span>JavaScript</span>
+                        <span>SocketIO</span>
+                      </div>
+                    <div class="project-features">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li>Undo transfers within 15 minutes</li>
+                            <li>Financial Goals</li>
+                            <li>Purchase (airtime & data)</li>
+                            <li>Live chat between users & admin</li>
+                            <li>Automated transaction fees</li>
+
+                        </ul>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-badge completed">FinTech</span>
+                        <span class="status-badge deployed">Live on Render</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SAPS-EDOCKET Project -->
+            <div class="project-card visible" data-category="security,cloud">
+                <div class="project-image">
+                    <img src="images/saps-edocket-dashboard.png" alt="SAPS-EDOCKET Case Management">
+                    <div class="project-overlay">
+                        <a href="https://saps-edocket.onrender.com" class="project-link" title="Live Demo">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://saps-edocket.onrender.com" class="project-link" title="View Source Code">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>SAPS-EDOCKET</h3>
+                    <p>Secure digital docket management system for SAPS with automated case tracking and compliance audit trails.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>PostgreSQL</span>
+                        <span>JavaScript</span>
+                        <span>ORM</span>
+                    </div>
+                    <div class="project-features">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li>Role-based access control</li>
+                            <li>Case Management</li>
+                            <li>Suspect Database</li>
+                            <li>Duplicate detection</li>
+                           <li>Case Status Tracking</li>
+
+                            <li>Compliance audit trails</li>
+                        </ul>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-badge completed">LAW</span>
+                        <span class="status-badge deployed">Live on Render</span>
+                    </div>
+                </div>
+            </div>
+
+             <!-- UniStay Project -->
+            <div class="project-card hidden" data-category="ecommerce,cloud">
+                <div class="project-image">
+                    <img src="images/unistay-project.png" alt="UniStay Student Accommodation">
+                    <div class="project-overlay">
+                        <a href="https://campus-stay-accommodation.onrender.com" class="project-link" title="Live Demo">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://campus-stay-accommodation.onrender.com" class="project-link" title="View Source Code">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>UniStay Accommodation</h3>
+                    <p>Student housing booking system with real-time occupancy tracking, Stripe payments, and role-based dashboards.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>PostgreSQL</span>
+                        <span>Stripe API</span>
+                        <span>Stripe</span>
+                        
+                    </div>
+                    <div class="project-features">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li>Accommodation Search & Filtering</li>
+                            <li>Add to favorites System</li>
+                            <li>Online Booking & Payments</li>
+                            <li>Review & Rating System</li>
+                            <li>Admin property management</li>
+                        </ul>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-badge completed">PROPERTY</span>
+                        <span class="status-badge deployed">Live on Render</span>
+                    </div>
+                </div>
+            </div>
+
+          
+
+            <!-- Nkuna Burial Society Project (Hidden by default) -->
+            <div class="project-card hidden" data-category="fintech,cloud">
+                <div class="project-image">
+                    <img src="images/nkuna-burial-project.png" alt="Nkuna Burial Society">
+                    <div class="project-overlay">
+                        <a href="https://nkuna-burial-society.onrender.com" class="project-link" title="Live Demo">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://nkuna-burial-platform.onrender.com" class="project-link" title="View Source Code">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Nkuna Burial Society</h3>
+                    <p>Funeral insurance platform with instant claim processing, age-based premium calculations, and secure virtual wallet transactions.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>PostgreSQL</span>
+                        <span>JavaScript</span>
+                        <span></span>
+                    </div>
+                    <div class="project-features">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li>Policy management</li>
+                            <li>Age-based premiums</li>
+                            <li>Instant claim processing</li>
+                            <li>Secure document upload</li>
+                            <li>Virtual banking system</li>
+                        </ul>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-badge completed">INSURANCE</span>
+                        <span class="status-badge deployed">Live on Render</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View More Button -->
+        <div class="view-more-container">
+            <button id="viewMoreBtn" class="btn btn-secondary">
+                <i class="fas fa-arrow-down"></i> View More Projects (2 More)
+            </button>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="projects-cta">
+            <p>All projects are live applications with real databases - click the demo links to experience them!</p>
+            <a href="#contact" class="btn btn-primary">Get In Touch</a>
+        </div>
+    </div>
+</section>
 
    <!-- Certificates Section -->
 <section id="certificates" class="certificates">
@@ -838,7 +841,7 @@
                         </a>
                         <a href="https://github.com/shichabonkuna22-star" class="social-link">
                             <i class="fab fa-github"></i>
-                        </a>+
+                        </a>
                         <a href="https://www.facebook.com/share/17mooyXdWK/?mibextid=wwXIfr" class="social-link" target="_blank">
                             <i class="fab fa-facebook"></i>
                         </a>
