@@ -14,7 +14,6 @@
 
 /* About Text */
 .about-text {
-<<<<<<< HEAD
     min-width: 0;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -22,12 +21,6 @@
     -webkit-hyphens: none;
     -moz-hyphens: none;
     -ms-hyphens: none;
-=======
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    min-width: 0; /* Prevent grid overflow */
->>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
 }
 
 .about-text h3 {
@@ -42,14 +35,8 @@
     line-height: 1.8;
     color: var(--text-color);
     margin-bottom: 1.5rem;
-<<<<<<< HEAD
     word-break: normal;
     overflow-wrap: break-word;
-=======
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
->>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
 }
 
 /* Education Info */
@@ -123,12 +110,8 @@
 /* About Image */
 .about-image {
     text-align: center;
-<<<<<<< HEAD
-    min-width: 0;
-=======
     position: relative;
-    min-width: 0; /* Prevent grid overflow */
->>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
+    min-width: 0;
 }
 
 .about-img {
@@ -277,6 +260,11 @@
     width: attr(data-width);
 }
 
+/* Progress Bar Animation Classes */
+.skill-progress.animated {
+    width: var(--target-width);
+}
+
 /* Skill Cards Section */
 .skill-cards-section {
     margin-top: 2rem;
@@ -419,13 +407,6 @@
     }
 }
 
-<<<<<<< HEAD
-=======
-/* Progress Bar Animation Classes */
-.skill-progress.animated {
-    width: var(--target-width);
-}
-
 /* Mobile Responsive Design - About Section Specific */
 @media (max-width: 768px) {
     .about-content {
@@ -498,6 +479,19 @@
 
 /* Tablet and Medium Screens */
 @media (max-width: 1100px) {
+    .about-content {
+        gap: 3rem;
+    }
+    
+    .about-text h3 {
+        font-size: 1.6rem;
+    }
+    
+    .about-text p {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    
     .progress-grid {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
@@ -558,7 +552,6 @@
     }
 }
 
->>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
 /* Projects Notice */
 .projects-notice {
     background: linear-gradient(135deg, #fff3cd 0%, #fff8e1 100%);
@@ -834,7 +827,9 @@
     #viewMoreBtn {
         padding: 0.8rem 2rem;
         font-size: 1rem;
-<<<<<<< HEAD
+        width: 90%;
+        max-width: 300px;
+        justify-content: center;
     }
 }
 
@@ -900,10 +895,5 @@
     
     .about-img {
         max-width: 250px;
-=======
-        width: 90%;
-        max-width: 300px;
-        justify-content: center;
->>>>>>> 780c85b011d4517007cd1cb27dbdfde760a732ad
     }
 }
