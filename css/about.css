@@ -1,6 +1,7 @@
 /* About Section */
 .about {
     background-color: var(--light-color);
+    overflow-x: hidden;
 }
 
 .about-content {
@@ -12,10 +13,21 @@
 }
 
 /* About Text */
+.about-text {
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+}
+
 .about-text h3 {
     color: var(--dark-color);
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
+    line-height: 1.3;
 }
 
 .about-text p {
@@ -23,6 +35,8 @@
     line-height: 1.8;
     color: var(--text-color);
     margin-bottom: 1.5rem;
+    word-break: normal;
+    overflow-wrap: break-word;
 }
 
 /* Education Info */
@@ -96,14 +110,17 @@
 /* About Image */
 .about-image {
     text-align: center;
+    min-width: 0;
 }
 
 .about-img {
     width: 100%;
     max-width: 400px;
+    height: auto;
     border-radius: 15px;
     box-shadow: var(--shadow);
     transition: var(--transition);
+    display: block;
 }
 
 .about-img:hover {
@@ -111,7 +128,6 @@
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Skills Container */
 /* Skills Container */
 .skills-container {
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -154,10 +170,12 @@
     gap: 1.8rem;
 }
 
-/* Progress Bar Styles */
+/* Progress Bar Styles - FIXED */
 .skill-item {
     margin-bottom: 1.2rem;
-    animation: fadeInUp 0.5s ease-out;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease-out forwards;
 }
 
 .skill-header {
@@ -214,6 +232,7 @@
     animation: shimmer 2s infinite;
 }
 
+/* CRITICAL FIX: Progress bar starts at 0 width and animates when .animated class is added */
 .skill-progress {
     background: linear-gradient(90deg, 
         var(--primary-color) 0%, 
@@ -221,9 +240,23 @@
     height: 100%;
     width: 0;
     border-radius: 10px;
-    transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     z-index: 1;
+}
+
+/* This class triggers the animation via JavaScript */
+.skill-progress.animated {
+    width: var(--target-width, 0);
+}
+
+/* Alternative: Use data-width attribute directly */
+.skill-progress[data-width]:not(.animated) {
+    width: 0;
+}
+
+.skill-progress.animated[data-width] {
+    width: attr(data-width);
 }
 
 /* Skill Cards Section */
@@ -247,6 +280,12 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.skill-card.animate {
+    animation: fadeInUp 0.6s ease-out forwards;
 }
 
 .skill-card:hover {
@@ -318,28 +357,28 @@
 
 /* Card Color Variants */
 .cloud-card .skill-card-icon {
-    color: #0078D4; /* Azure blue */
+    color: #0078D4;
     background: linear-gradient(135deg, 
         rgba(0, 120, 212, 0.1) 0%, 
         rgba(0, 120, 212, 0.05) 100%);
 }
 
 .tools-card .skill-card-icon {
-    color: #68217A; /* .NET purple */
+    color: #68217A;
     background: linear-gradient(135deg, 
         rgba(104, 33, 122, 0.1) 0%, 
         rgba(104, 33, 122, 0.05) 100%);
 }
 
 .devops-card .skill-card-icon {
-    color: #FF6B35; /* DevOps orange */
+    color: #FF6B35;
     background: linear-gradient(135deg, 
         rgba(255, 107, 53, 0.1) 0%, 
         rgba(255, 107, 53, 0.05) 100%);
 }
 
 .web-card .skill-card-icon {
-    color: #4CAF50; /* Web green */
+    color: #4CAF50;
     background: linear-gradient(135deg, 
         rgba(76, 175, 80, 0.1) 0%, 
         rgba(76, 175, 80, 0.05) 100%);
@@ -361,61 +400,6 @@
         transform: translateY(0);
     }
 }
-
-/* Progress Bar Animation Classes */
-.skill-progress.animated {
-    width: var(--target-width);
-}
-
-/* Responsive Design */
-@media (max-width: 1100px) {
-    .progress-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-    
-    .skill-cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .skills-container {
-        padding: 2rem;
-    }
-    
-    .progress-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .skill-cards-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .skill-name {
-        font-size: 1rem;
-    }
-    
-    .skill-card {
-        padding: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .skills-container {
-        padding: 1.5rem;
-    }
-    
-    .skills-subtitle {
-        font-size: 1.2rem;
-    }
-    
-    .skill-card-icon {
-        font-size: 2rem;
-        width: 60px;
-        height: 60px;
-    }
-}
-
 
 /* Projects Notice */
 .projects-notice {
@@ -493,27 +477,9 @@
     transition: all 0.3s ease;
 }
 
-/* Responsive design for notice */
-@media (max-width: 768px) {
-    .projects-notice {
-        padding: 1rem;
-        margin: 1rem 0 1.5rem 0;
-    }
-    
-    .notice-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.5rem;
-    }
-    
-    .notice-content i {
-        margin-top: 0;
-    }
-}
-
 /* Project Card Visibility */
 .project-card.hidden {
-    display: none !important; /* Force hide */
+    display: none !important;
     opacity: 0;
     transform: translateY(20px);
     pointer-events: none;
@@ -582,18 +548,6 @@
     transform: rotate(180deg);
 }
 
-/* Animation for showing hidden projects */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* Staggered animation for multiple cards */
 .project-card.hidden.show {
     display: block;
@@ -608,8 +562,112 @@
     animation-delay: 0.2s;
 }
 
-/* Responsive Design for View More */
-@media (max-width: 768px) {
+/* =====================================================
+   RESPONSIVE DESIGN - FULL BREAKPOINTS
+   ===================================================== */
+
+/* Large tablets and small laptops (1100px and below) */
+@media (max-width: 1100px) {
+    .about-content {
+        gap: 3rem;
+    }
+    
+    .about-text h3 {
+        font-size: 1.6rem;
+    }
+    
+    .about-text p {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    
+    .progress-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    .skill-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablets and landscape phones (991px and below) */
+@media (max-width: 991px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .about-text {
+        order: 2;
+    }
+    
+    .about-image {
+        order: 1;
+    }
+    
+    .about-img {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+}
+
+/* Small tablets and large phones (767px and below) */
+@media (max-width: 767px) {
+    .about-content {
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .about-text h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .about-text p {
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+    
+    .about-img {
+        max-width: 300px;
+    }
+    
+    .skills-container {
+        padding: 2rem;
+    }
+    
+    .progress-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .skill-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .skill-name {
+        font-size: 1rem;
+    }
+    
+    .skill-card {
+        padding: 1.5rem;
+    }
+    
+    .projects-notice {
+        padding: 1rem;
+        margin: 1rem 0 1.5rem 0;
+    }
+    
+    .notice-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .notice-content i {
+        margin-top: 0;
+    }
+    
     .view-more-container {
         margin: 2rem 0;
         padding: 1.5rem 0;
@@ -621,14 +679,67 @@
     }
 }
 
-/* Add to projects.css */
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-        transform: translateY(0);
+/* Mobile phones (480px and below) */
+@media (max-width: 480px) {
+    .about-content {
+        gap: 1.5rem;
     }
-    to {
-        opacity: 0;
-        transform: translateY(20px);
+    
+    .about-text h3 {
+        font-size: 1.3rem;
+    }
+    
+    .about-text p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .about-img {
+        max-width: 280px;
+    }
+    
+    .skills-container {
+        padding: 1.5rem;
+    }
+    
+    .skills-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .skill-card-icon {
+        font-size: 2rem;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Extra small devices (360px and below) */
+@media (max-width: 360px) {
+    .about-text p {
+        font-size: 0.9rem;
+    }
+    
+    .about-img {
+        max-width: 100%;
+    }
+}
+
+/* Landscape mode specific fixes (short height screens) */
+@media (max-height: 500px) and (orientation: landscape) {
+    .about-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+    
+    .about-text {
+        order: 1;
+    }
+    
+    .about-image {
+        order: 2;
+    }
+    
+    .about-img {
+        max-width: 250px;
     }
 }
