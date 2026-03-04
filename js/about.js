@@ -621,3 +621,40 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(skillsContainer);
     }
 });
+
+
+
+// Technology Stack Toggle Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('techStackToggle');
+    const content = document.getElementById('techStackContent');
+    
+    if (toggleBtn && content) {
+        toggleBtn.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            if (!isExpanded) {
+                // Show content
+                content.style.display = 'grid';
+                // Small delay to allow display:grid to apply before adding opacity
+                setTimeout(() => {
+                    content.classList.add('show');
+                }, 10);
+                this.setAttribute('aria-expanded', 'true');
+                this.querySelector('.toggle-text').textContent = 'Hide Technology Stack and Tools';
+            } else {
+                // Hide content
+                content.classList.remove('show');
+                this.setAttribute('aria-expanded', 'false');
+                this.querySelector('.toggle-text').textContent = 'See Technology Stack and Tools';
+                
+                // Wait for animation to finish before hiding
+                setTimeout(() => {
+                    if (this.getAttribute('aria-expanded') === 'false') {
+                        content.style.display = 'none';
+                    }
+                }, 400);
+            }
+        });
+    }
+});

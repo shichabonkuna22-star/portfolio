@@ -930,3 +930,118 @@
 * {
     box-sizing: border-box;
 }
+
+
+
+
+
+
+
+
+
+/* Collapsible Skills Toggle Button */
+.skills-toggle-btn {
+    width: 100%;
+    padding: 1.2rem 2rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin: 2rem 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(25, 118, 210, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.skills-toggle-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(25, 118, 210, 0.3);
+}
+
+.skills-toggle-btn:active {
+    transform: translateY(0);
+}
+
+.skills-toggle-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.skills-toggle-btn:hover::before {
+    left: 100%;
+}
+
+.toggle-icon {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.skills-toggle-btn[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* Collapsible Content Container */
+#techStackContent {
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#techStackContent.show {
+    display: grid;
+    opacity: 1;
+    transform: translateY(0);
+    animation: slideDown 0.4s ease-out forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Adjust spacing when collapsed */
+.skill-cards-section {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+/* Mobile responsiveness for toggle button */
+@media (max-width: 768px) {
+    .skills-toggle-btn {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    .toggle-text {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .skills-toggle-btn {
+        padding: 0.9rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
