@@ -23,16 +23,6 @@ class AboutAnimations {
         
         const floatingContainer = document.createElement('div');
         floatingContainer.className = 'about-floating-elements';
-        floatingContainer.style.cssText = `
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        `;
         
         const shapes = [
             { className: 'about-floating about-floating-1', emoji: '💻', top: '20%', left: '10%' },
@@ -43,33 +33,14 @@ class AboutAnimations {
         shapes.forEach(shape => {
             const element = document.createElement('div');
             element.className = shape.className;
-            element.style.cssText = `
-                position: absolute;
-                top: ${shape.top};
-                left: ${shape.left};
-                font-size: 2rem;
-                opacity: 0.1;
-                animation: float 6s ease-in-out infinite;
-            `;
+            element.style.top = shape.top;
+            element.style.left = shape.left;
             element.innerHTML = shape.emoji;
             floatingContainer.appendChild(element);
         });
 
         aboutSection.style.position = 'relative';
         aboutSection.appendChild(floatingContainer);
-        
-        // Add float animation
-        if (!document.querySelector('#float-animation')) {
-            const style = document.createElement('style');
-            style.id = 'float-animation';
-            style.textContent = `
-                @keyframes float {
-                    0%, 100% { transform: translateY(0) rotate(0deg); }
-                    50% { transform: translateY(-20px) rotate(5deg); }
-                }
-            `;
-            document.head.appendChild(style);
-        }
     }
 
     setupSkillAnimations() {
@@ -102,7 +73,7 @@ class AboutAnimations {
     }
 
     animateSkills() {
-        // Animate progress bars with staggered delay - FIXED
+        // Animate progress bars with staggered delay
         this.skillBars.forEach((bar, index) => {
             setTimeout(() => {
                 const targetWidth = bar.getAttribute('data-width');
@@ -209,34 +180,12 @@ class AboutAnimations {
     showImageModal() {
         const modal = document.createElement('div');
         modal.className = 'image-modal';
-        modal.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            cursor: pointer;
-            animation: fadeIn 0.3s ease;
-            padding: 1rem;
-            box-sizing: border-box;
-        `;
+        modal.setAttribute('aria-label', 'Enlarged image');
+        modal.setAttribute('role', 'dialog');
 
         const img = document.createElement('img');
         img.src = this.aboutImage.src;
-        img.alt = this.aboutImage.alt;
-        img.style.cssText = `
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: scaleIn 0.3s ease;
-            object-fit: contain;
-        `;
+        img.alt = this.aboutImage.alt || 'About Me';
 
         modal.appendChild(img);
         document.body.appendChild(modal);
@@ -250,29 +199,13 @@ class AboutAnimations {
             }, 300);
         });
 
-        this.addModalStyles();
-    }
-
-    addModalStyles() {
-        if (document.querySelector('#modal-styles')) return;
-        
-        const style = document.createElement('style');
-        style.id = 'modal-styles';
-        style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
+        // Close on escape key
+        document.addEventListener('keydown', function escapeHandler(e) {
+            if (e.key === 'Escape' && modal.parentNode) {
+                document.body.removeChild(modal);
+                document.removeEventListener('keydown', escapeHandler);
             }
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; }
-            }
-            @keyframes scaleIn {
-                from { transform: scale(0.8); opacity: 0; }
-                to { transform: scale(1); opacity: 1; }
-            }
-        `;
-        document.head.appendChild(style);
+        });
     }
 
     setupScrollAnimations() {
@@ -402,7 +335,7 @@ const AboutUtils = {
         }
         
         if (graduationElement && newGraduationDate) {
-            graduationElement.textContent = `Graduating: ${newGraduationDate} | Outstanding Academic Performance`;
+            graduationElement.innerHTML = `<i class="fas fa-calendar-alt"></i> Graduating: ${newGraduationDate} | Outstanding Academic Performance`;
         }
     }
 };
@@ -418,7 +351,46 @@ window.updateSkill = (skillName, percentage) => {
     aboutAnimations.updateSkill(skillName, percentage);
 };
 
-// View More Projects functionality - SINGLE INSTANCE ONLY
+// =====================================================
+// TECHNOLOGY STACK TOGGLE FUNCTIONALITY - ENHANCED
+// =====================================================
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('techStackToggle');
+    const content = document.getElementById('techStackContent');
+    
+    if (toggleBtn && content) {
+        toggleBtn.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            if (!isExpanded) {
+                // Show content
+                content.style.display = 'grid';
+                // Small delay to allow display:grid to apply before adding opacity
+                setTimeout(() => {
+                    content.classList.add('show');
+                }, 10);
+                this.setAttribute('aria-expanded', 'true');
+                this.querySelector('.toggle-text').innerHTML = '<i class="fas fa-tools"></i> Hide Technology Stack and Tools';
+            } else {
+                // Hide content
+                content.classList.remove('show');
+                this.setAttribute('aria-expanded', 'false');
+                this.querySelector('.toggle-text').innerHTML = '<i class="fas fa-tools"></i> See Technology Stack and Tools';
+                
+                // Wait for animation to finish before hiding
+                setTimeout(() => {
+                    if (this.getAttribute('aria-expanded') === 'false') {
+                        content.style.display = 'none';
+                    }
+                }, 400);
+            }
+        });
+    }
+});
+
+// =====================================================
+// VIEW MORE PROJECTS FUNCTIONALITY
+// =====================================================
 document.addEventListener('DOMContentLoaded', function() {
     const viewMoreBtn = document.getElementById('viewMoreBtn');
     let showingAll = false; // Single source of truth
@@ -478,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (viewMoreBtn) {
         // Initialize state
-        updateView();
+        setTimeout(updateView, 100); // Small delay for filter initialization
         
         viewMoreBtn.addEventListener('click', function() {
             const visibleProjects = getVisibleProjects();
@@ -533,7 +505,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Mobile Features Toggle Functionality
+// =====================================================
+// MOBILE FEATURES TOGGLE FUNCTIONALITY
+// =====================================================
 document.addEventListener('DOMContentLoaded', function() {
     const featureToggles = document.querySelectorAll('.features-toggle');
     
@@ -600,7 +574,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', handleResponsiveFeatures);
 });
 
-// Fix for progress bars - ensure they animate on page load
+// =====================================================
+// FIX FOR PROGRESS BARS - ENSURE THEY ANIMATE ON PAGE LOAD
+// =====================================================
 document.addEventListener('DOMContentLoaded', function() {
     // Force reflow to trigger animation
     const skillsContainer = document.querySelector('.skills-container');
@@ -622,39 +598,41 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
-
-// Technology Stack Toggle Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const toggleBtn = document.getElementById('techStackToggle');
-    const content = document.getElementById('techStackContent');
-    
-    if (toggleBtn && content) {
-        toggleBtn.addEventListener('click', function() {
-            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+// =====================================================
+// SKILL PERCENTAGE UPDATE FUNCTION (GLOBAL)
+// =====================================================
+function updateSkillPercentage(skillName, newPercentage) {
+    const skillItems = document.querySelectorAll('.skill-item');
+    skillItems.forEach(item => {
+        const nameElement = item.querySelector('.skill-name');
+        if (nameElement && nameElement.textContent.includes(skillName)) {
+            const progressBar = item.querySelector('.skill-progress');
+            const percentageElement = item.querySelector('.skill-percentage');
             
-            if (!isExpanded) {
-                // Show content
-                content.style.display = 'grid';
-                // Small delay to allow display:grid to apply before adding opacity
-                setTimeout(() => {
-                    content.classList.add('show');
-                }, 10);
-                this.setAttribute('aria-expanded', 'true');
-                this.querySelector('.toggle-text').textContent = 'Hide Technology Stack and Tools';
-            } else {
-                // Hide content
-                content.classList.remove('show');
-                this.setAttribute('aria-expanded', 'false');
-                this.querySelector('.toggle-text').textContent = 'See Technology Stack and Tools';
-                
-                // Wait for animation to finish before hiding
-                setTimeout(() => {
-                    if (this.getAttribute('aria-expanded') === 'false') {
-                        content.style.display = 'none';
-                    }
-                }, 400);
+            if (progressBar) {
+                progressBar.setAttribute('data-width', `${newPercentage}%`);
+                progressBar.style.setProperty('--target-width', `${newPercentage}%`);
+                // If already animated, update immediately
+                if (progressBar.classList.contains('animated')) {
+                    progressBar.style.width = `${newPercentage}%`;
+                }
             }
-        });
-    }
-});
+            
+            if (percentageElement) {
+                percentageElement.textContent = `${newPercentage}%`;
+            }
+        }
+    });
+}
+
+// Make it available globally
+window.updateSkillPercentage = updateSkillPercentage;
+
+// =====================================================
+// LOG AZURE SKILLS FOR DEBUGGING
+// =====================================================
+console.log('✅ About section updated with Azure Cloud skills');
+console.log('✅ Skills include: Azure App Service, Cosmos DB, Blob Storage, Application Insights');
+console.log('✅ Authentication: OAuth 2.0, SAS Tokens');
+console.log('✅ Testing: xUnit, Moq');
+console.log('✅ Realistic junior developer percentages applied');
