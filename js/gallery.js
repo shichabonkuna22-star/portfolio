@@ -4,7 +4,10 @@ class GalleryManager {
         this.galleryItems = [];
         this.lightbox = null;
         this.currentIndex = 0;
-        this.activeFilter = 'all';
+
+        // graduation slider state
+        this.itemStates = new Map();
+
         this.init();
     }
 
@@ -12,224 +15,234 @@ class GalleryManager {
         this.createLightbox();
         this.setupEventListeners();
         this.loadGalleryItems();
-        this.animateGalleryOnScroll();
+        this.initCardSlideshows();
     }
+
+    /* ================= LIGHTBOX ================= */
 
     createLightbox() {
         this.lightbox = document.createElement('div');
         this.lightbox.className = 'gallery-lightbox';
+
         this.lightbox.innerHTML = `
             <div class="lightbox-content">
                 <button class="lightbox-close">&times;</button>
-                <img class="lightbox-image" src="" alt="">
+                <img class="lightbox-image" src="">
                 <div class="lightbox-caption">
                     <h4 class="lightbox-title"></h4>
                     <p class="lightbox-description"></p>
                 </div>
                 <div class="lightbox-nav">
-                    <button class="lightbox-prev">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="lightbox-next">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    <button class="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="lightbox-next"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         `;
+
         document.body.appendChild(this.lightbox);
 
-        // Lightbox events
-        this.lightbox.querySelector('.lightbox-close').addEventListener('click', () => {
-            this.closeLightbox();
-        });
+        this.lightbox.querySelector('.lightbox-close')
+            .addEventListener('click', () => this.closeLightbox());
 
-        this.lightbox.querySelector('.lightbox-prev').addEventListener('click', () => {
-            this.previousImage();
-        });
+        this.lightbox.querySelector('.lightbox-prev')
+            .addEventListener('click', () => this.previousImage());
 
-        this.lightbox.querySelector('.lightbox-next').addEventListener('click', () => {
-            this.nextImage();
-        });
+        this.lightbox.querySelector('.lightbox-next')
+            .addEventListener('click', () => this.nextImage());
 
         this.lightbox.addEventListener('click', (e) => {
-            if (e.target === this.lightbox) {
-                this.closeLightbox();
-            }
+            if (e.target === this.lightbox) this.closeLightbox();
         });
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (this.lightbox.classList.contains('active')) {
-                if (e.key === 'Escape') this.closeLightbox();
-                if (e.key === 'ArrowLeft') this.previousImage();
-                if (e.key === 'ArrowRight') this.nextImage();
-            }
+            if (!this.lightbox.classList.contains('active')) return;
+
+            if (e.key === 'Escape') this.closeLightbox();
+            if (e.key === 'ArrowLeft') this.previousImage();
+            if (e.key === 'ArrowRight') this.nextImage();
         });
     }
+
+    /* ================= SETUP ================= */
 
     setupEventListeners() {
-        // Filter buttons
-        document.querySelectorAll('.gallery-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const filter = button.getAttribute('data-filter');
-                this.filterGallery(filter);
-                this.setActiveFilterButton(button);
-            });
-        });
-
-        // Gallery item clicks
+        // zoom button opens lightbox
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.gallery-item')) {
+            if (e.target.closest('.zoom-btn')) {
                 const item = e.target.closest('.gallery-item');
-                const index = Array.from(document.querySelectorAll('.gallery-item')).indexOf(item);
-                this.openLightbox(index);
+                this.openLightbox(item);
             }
         });
+
+        // arrow buttons open lightbox and update image
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.gallery-slide-btn');
+            if (!btn) return;
+
+            const item = btn.closest('.gallery-item');
+            const direction = btn.classList.contains('prev') ? 'prev' : 'next';
+            
+            // First update the card image
+            this.changeCardImage(item, direction);
+            
+            // THEN open lightbox with the NEWLY selected image
+            setTimeout(() => {
+                this.openLightbox(item);
+            }, 50);
+        });
     }
+
+    /* ================= LOAD ================= */
 
     loadGalleryItems() {
-        this.galleryItems = Array.from(document.querySelectorAll('.gallery-item')).map(item => {
-            return {
-                image: item.getAttribute('data-image') || item.querySelector('img')?.src,
-                title: item.getAttribute('data-title') || 'Gallery Image',
-                description: item.getAttribute('data-description') || '',
-                category: item.getAttribute('data-category') || 'all'
-            };
-        });
+        this.galleryItems = Array.from(document.querySelectorAll('.gallery-item')).map(item => ({
+            element: item,
+            title: item.dataset.title,
+            description: item.dataset.description,
+            images: this.getImages(item),
+            defaultImage: this.getDefaultImage(item)
+        }));
     }
 
-    filterGallery(filter) {
-        this.activeFilter = filter;
-        
+    getImages(item) {
+        const main = item.querySelector('.gallery-image img')?.src;
+
+        const extras = Array.from(item.querySelectorAll('.extra-images img'))
+            .map(img => img.src);
+
+        return [main, ...extras].filter(Boolean);
+    }
+
+    getDefaultImage(item) {
+        // For graduation item, always return the original H.shake-cropped.jpg
+        if (item.classList.contains('graduation-item')) {
+            return 'images/Grad/H.shake-cropped.jpg';
+        }
+        // For other items, return the first image in their gallery
+        const firstImg = item.querySelector('.gallery-image img')?.src;
+        return firstImg || '';
+    }
+
+    /* ================= RESET TO DEFAULT ================= */
+
+    resetToDefaultImage(item) {
+        const defaultImg = this.getDefaultImage(item);
+        if (!defaultImg) return;
+
+        // Reset the card image to default
+        const img = item.querySelector('.gallery-image img');
+        img.src = defaultImg;
+
+        // Reset the slider state index
+        const state = this.itemStates.get(item);
+        if (state) {
+            // Find the index of the default image in the images array
+            const defaultIndex = state.images.indexOf(defaultImg);
+            state.index = defaultIndex >= 0 ? defaultIndex : 0;
+        }
+
+        // Clear the active image tracking
+        delete item.dataset.activeImage;
+    }
+
+    /* ================= CARD SLIDER ================= */
+
+    initCardSlideshows() {
         document.querySelectorAll('.gallery-item').forEach(item => {
-            const category = item.getAttribute('data-category');
-            
-            if (filter === 'all' || category === filter) {
-                item.style.display = 'block';
-                setTimeout(() => {
-                    item.style.opacity = '1';
-                    item.style.transform = 'scale(1)';
-                }, 100);
-            } else {
-                item.style.opacity = '0';
-                item.style.transform = 'scale(0.8)';
-                setTimeout(() => {
-                    item.style.display = 'none';
-                }, 300);
+            const images = this.getImages(item);
+            if (images.length <= 1) return;
+
+            this.itemStates.set(item, {
+                index: 0,
+                images
+            });
+
+            const imgWrap = item.querySelector('.gallery-image');
+
+            if (!imgWrap.querySelector('.gallery-slide-btn')) {
+                imgWrap.insertAdjacentHTML('beforeend', `
+                    <button class="gallery-slide-btn prev" data-dir="prev">‹</button>
+                    <button class="gallery-slide-btn next" data-dir="next">›</button>
+                `);
             }
         });
     }
 
-    setActiveFilterButton(activeButton) {
-        document.querySelectorAll('.gallery-btn').forEach(button => {
-            button.classList.remove('active');
-        });
-        activeButton.classList.add('active');
+    changeCardImage(item, direction) {
+        const state = this.itemStates.get(item);
+        if (!state) return;
+
+        if (direction === 'next') {
+            state.index = (state.index + 1) % state.images.length;
+        } else {
+            state.index = (state.index - 1 + state.images.length) % state.images.length;
+        }
+
+        const img = item.querySelector('.gallery-image img');
+        img.src = state.images[state.index];
+
+        // store current image for lightbox sync
+        item.dataset.activeImage = img.src;
     }
 
-    openLightbox(index) {
-        this.currentIndex = index;
-        const item = this.galleryItems[index];
+    /* ================= LIGHTBOX ================= */
+
+    openLightbox(item) {
+        const images = this.getImages(item);
+
+        // get current displayed image (from slider)
+        let activeImg = item.dataset.activeImage;
         
-        if (item) {
-            const lightbox = this.lightbox;
-            lightbox.querySelector('.lightbox-image').src = item.image;
-            lightbox.querySelector('.lightbox-title').textContent = item.title;
-            lightbox.querySelector('.lightbox-description').textContent = item.description;
-            
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // fallback to main image if no active image stored
+        if (!activeImg) {
+            activeImg = item.querySelector('.gallery-image img').src;
         }
+
+        this.currentIndex = images.indexOf(activeImg);
+        if (this.currentIndex < 0) this.currentIndex = 0;
+
+        this.activeItem = item;
+        this.activeImages = images;
+
+        this.renderLightbox();
+
+        this.lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    renderLightbox() {
+        const img = this.activeImages[this.currentIndex];
+
+        this.lightbox.querySelector('.lightbox-image').src = img;
+        this.lightbox.querySelector('.lightbox-title').textContent =
+            this.activeItem.dataset.title || 'Gallery Image';
+
+        this.lightbox.querySelector('.lightbox-description').textContent =
+            this.activeItem.dataset.description || '';
     }
 
     closeLightbox() {
         this.lightbox.classList.remove('active');
         document.body.style.overflow = '';
+        
+        // IMPORTANT: Reset the gallery item to default image when lightbox closes
+        if (this.activeItem) {
+            this.resetToDefaultImage(this.activeItem);
+        }
     }
 
     nextImage() {
-        this.currentIndex = (this.currentIndex + 1) % this.galleryItems.length;
-        this.updateLightboxImage();
+        this.currentIndex = (this.currentIndex + 1) % this.activeImages.length;
+        this.renderLightbox();
     }
 
     previousImage() {
-        this.currentIndex = (this.currentIndex - 1 + this.galleryItems.length) % this.galleryItems.length;
-        this.updateLightboxImage();
-    }
-
-    updateLightboxImage() {
-        const item = this.galleryItems[this.currentIndex];
-        const lightboxImage = this.lightbox.querySelector('.lightbox-image');
-        const lightboxTitle = this.lightbox.querySelector('.lightbox-title');
-        const lightboxDescription = this.lightbox.querySelector('.lightbox-description');
-
-        // Add fade out effect
-        lightboxImage.style.opacity = '0';
-        
-        setTimeout(() => {
-            lightboxImage.src = item.image;
-            lightboxTitle.textContent = item.title;
-            lightboxDescription.textContent = item.description;
-            lightboxImage.style.opacity = '1';
-        }, 200);
-    }
-
-    animateGalleryOnScroll() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'galleryItemAppear 0.6s ease-out forwards';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            observer.observe(item);
-        });
-    }
-
-    // Method to add new gallery items dynamically
-    addGalleryItem(itemData) {
-        const grid = document.querySelector('.gallery-grid');
-        const galleryItem = this.createGalleryItem(itemData);
-        grid.appendChild(galleryItem);
-        
-        // Reload gallery items and re-initialize animations
-        this.loadGalleryItems();
-        this.animateGalleryOnScroll();
-    }
-
-    createGalleryItem(item) {
-        const galleryItem = document.createElement('div');
-        galleryItem.className = 'gallery-item';
-        galleryItem.setAttribute('data-category', item.category);
-        galleryItem.setAttribute('data-title', item.title);
-        galleryItem.setAttribute('data-description', item.description);
-        
-        galleryItem.innerHTML = `
-            <div class="gallery-image">
-                <img src="${item.image}" alt="${item.title}">
-                <div class="gallery-overlay">
-                    <div class="gallery-overlay-content">
-                        <h4>${item.title}</h4>
-                        <p>${item.description}</p>
-                        <button class="zoom-btn">
-                            <i class="fas fa-search-plus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        return galleryItem;
+        this.currentIndex = (this.currentIndex - 1 + this.activeImages.length) % this.activeImages.length;
+        this.renderLightbox();
     }
 }
 
-// Initialize gallery when DOM is loaded
+/* INIT */
 document.addEventListener('DOMContentLoaded', () => {
     new GalleryManager();
 });
-
-// Export for use in main.js
-window.GalleryManager = GalleryManager;

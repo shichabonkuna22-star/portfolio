@@ -145,7 +145,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.95);
     z-index: 3000;
     align-items: center;
     justify-content: center;
@@ -159,10 +159,14 @@
     position: relative;
     max-width: 90%;
     max-height: 90%;
-    background: var(--light-color);
+    background: transparent;
     border-radius: 10px;
-    overflow: hidden;
+    overflow: visible;
     animation: lightboxZoom 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 @keyframes lightboxZoom {
@@ -177,31 +181,40 @@
 }
 
 .lightbox-image {
-    max-width: 100%;
-    max-height: 80vh;
+    max-width: 90vw;
+    max-height: 85vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
 }
 
 .lightbox-caption {
     padding: 1rem;
     text-align: center;
-    background: var(--light-color);
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    margin-top: 1rem;
+    max-width: 80%;
 }
 
 .lightbox-caption h4 {
-    color: var(--dark-color);
+    color: var(--light-color);
     margin-bottom: 0.5rem;
 }
 
 .lightbox-caption p {
-    color: var(--text-color);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 0.9rem;
 }
 
 .lightbox-close {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: -50px;
+    right: 0;
     background: rgba(0, 0, 0, 0.7);
     color: var(--light-color);
     border: none;
@@ -227,8 +240,9 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 2rem;
+    padding: 0 1rem;
     transform: translateY(-50%);
+    pointer-events: none;
 }
 
 .lightbox-prev,
@@ -245,6 +259,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: auto;
 }
 
 .lightbox-prev:hover,
@@ -269,6 +284,50 @@
     }
 }
 
+/* ===== Graduation Mini Slider ===== */
+.graduation-slider {
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-slide-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.gallery-slide-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.gallery-slide-btn.prev {
+    left: 10px;
+}
+
+.gallery-slide-btn.next {
+    right: 10px;
+}
+
+/* Extra images hidden */
+.extra-images {
+    display: none;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .gallery-grid {
@@ -286,7 +345,7 @@
     }
     
     .lightbox-nav {
-        padding: 0 1rem;
+        padding: 0 0.5rem;
     }
     
     .lightbox-prev,
@@ -294,6 +353,16 @@
         width: 40px;
         height: 40px;
         font-size: 1rem;
+    }
+    
+    .lightbox-image {
+        max-width: 95vw;
+        max-height: 80vh;
+    }
+    
+    .lightbox-close {
+        top: -40px;
+        right: 0;
     }
 }
 
@@ -313,5 +382,10 @@
     
     .lightbox-content {
         max-width: 95%;
+    }
+    
+    .lightbox-image {
+        max-width: 95vw;
+        max-height: 70vh;
     }
 }
