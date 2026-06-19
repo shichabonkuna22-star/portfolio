@@ -1,4 +1,122 @@
 /* Projects Section */
+/* =====================================================
+   PROJECTS NOTICE — IMPORTANT LOADING NOTE
+   ===================================================== */
+
+.projects-notice {
+    margin: 1.5rem 0 2.5rem 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(255, 193, 7, 0.25);
+    border: 2px solid #ffc107;
+    background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+    transition: all 0.3s ease;
+}
+
+.projects-notice:hover {
+    box-shadow: 0 12px 40px rgba(255, 193, 7, 0.35);
+    transform: translateY(-2px);
+}
+
+.notice-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.5rem 2rem;
+}
+
+.notice-content i {
+    font-size: 2rem;
+    color: #f57c00;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    animation: pulse-warning 2s infinite;
+}
+
+@keyframes pulse-warning {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+.notice-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #4e342e;
+}
+
+.notice-text strong {
+    color: #e65100;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: inline-block;
+}
+
+.notice-text strong::after {
+    content: ' ⚡';
+    font-size: 1.2rem;
+}
+
+/* Optional: Add a subtle pattern or stripe for extra visibility */
+.projects-notice::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 193, 7, 0.05) 10px,
+        rgba(255, 193, 7, 0.05) 20px
+    );
+    pointer-events: none;
+    border-radius: 16px;
+}
+
+.projects-notice {
+    position: relative;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .notice-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.2rem 1.5rem;
+    }
+    
+    .notice-content i {
+        font-size: 2.2rem;
+        margin-top: 0;
+    }
+    
+    .notice-text {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .notice-content {
+        padding: 1rem 1.2rem;
+    }
+    
+    .notice-text {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    .notice-content i {
+        font-size: 1.8rem;
+    }
+}
+
 .projects {
     background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%);
     position: relative;

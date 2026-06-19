@@ -1,4 +1,7 @@
-/* About Section */
+/* =====================================================
+   ABOUT SECTION — COMPLETE STYLES
+   ===================================================== */
+
 .about {
     background-color: var(--light-color);
     overflow-x: hidden;
@@ -13,7 +16,7 @@
     margin-bottom: 4rem;
 }
 
-/* About Text */
+/* ---- About Text ---- */
 .about-text {
     min-width: 0;
     word-wrap: break-word;
@@ -57,75 +60,7 @@
     background: linear-gradient(90deg, var(--primary-color), transparent);
 }
 
-/* Education Info */
-.education-info {
-    background: linear-gradient(135deg, var(--light-color) 0%, #f8f9fa 100%);
-    padding: 2rem;
-    border-radius: 15px;
-    border-left: 4px solid var(--primary-color);
-    margin: 2rem 0;
-}
-
-.education-info h4 {
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.education-info h4 i {
-    font-size: 1.2rem;
-}
-
-.education-detail {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-}
-
-.education-status {
-    background-color: var(--primary-color);
-    color: var(--light-color);
-    padding: 0.3rem 1rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.education-info > p {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-}
-
-.education-info > p i {
-    color: var(--primary-color);
-}
-
-/* Community Engagement */
-.community-engagement {
-    padding: 1.5rem;
-    background-color: rgba(135, 206, 235, 0.1);
-    border-radius: 10px;
-    border-left: 4px solid var(--accent-color);
-}
-
-.community-engagement h4 {
-    color: var(--accent-color);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.community-engagement h4 i {
-    font-size: 1.2rem;
-}
-
-/* About Image */
+/* ---- About Image ---- */
 .about-image {
     text-align: center;
     position: relative;
@@ -140,6 +75,7 @@
     box-shadow: var(--shadow);
     transition: var(--transition);
     display: block;
+    cursor: pointer;
 }
 
 .about-img:hover {
@@ -147,7 +83,7 @@
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Floating Elements */
+/* ---- Floating Elements ---- */
 .about-floating-elements {
     position: absolute;
     top: 0;
@@ -171,13 +107,11 @@
     left: 10%;
     animation-delay: 0s;
 }
-
 .about-floating-2 {
     top: 60%;
     left: 80%;
     animation-delay: 2s;
 }
-
 .about-floating-3 {
     top: 80%;
     left: 15%;
@@ -185,7 +119,8 @@
 }
 
 @keyframes float {
-    0%, 100% {
+    0%,
+    100% {
         transform: translateY(0) rotate(0deg);
     }
     50% {
@@ -193,7 +128,9 @@
     }
 }
 
-/* Skills Container */
+/* =====================================================
+   SKILLS CONTAINER
+   ===================================================== */
 .skills-container {
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
     padding: 3rem;
@@ -220,7 +157,7 @@
     font-size: 2rem;
 }
 
-/* Skills Subtitle */
+/* ---- Skills Subtitle ---- */
 .skills-subtitle {
     color: var(--dark-color);
     font-size: 1.4rem;
@@ -237,7 +174,7 @@
     font-size: 1.3rem;
 }
 
-/* Core Skills Grid (Progress Bars) */
+/* ---- Core Skills Grid (Progress Bars) ---- */
 .core-skills-section {
     margin-bottom: 3rem;
 }
@@ -249,7 +186,7 @@
     width: 100%;
 }
 
-/* Progress Bar Styles */
+/* ---- Progress Bar Styles ---- */
 .skill-item {
     margin-bottom: 1.2rem;
     opacity: 0;
@@ -312,19 +249,13 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(255,255,255,0.3) 50%, 
-        transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
     animation: shimmer 2s infinite;
     pointer-events: none;
 }
 
-/* Progress bar animation */
 .skill-progress {
-    background: linear-gradient(90deg, 
-        var(--primary-color) 0%, 
-        var(--secondary-color) 100%);
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     height: 100%;
     width: 0;
     border-radius: 10px;
@@ -334,122 +265,237 @@
     display: block;
 }
 
-/* Progress bar width definitions - ALL PERCENTAGES */
-.skill-progress[data-width="75%"] { --target-width: 75%; }
-.skill-progress[data-width="78%"] { --target-width: 78%; }
-.skill-progress[data-width="72%"] { --target-width: 72%; }
-.skill-progress[data-width="70%"] { --target-width: 70%; }
-.skill-progress[data-width="68%"] { --target-width: 68%; }
-.skill-progress[data-width="65%"] { --target-width: 65%; }
-.skill-progress[data-width="62%"] { --target-width: 62%; }
-.skill-progress[data-width="60%"] { --target-width: 60%; }
-.skill-progress[data-width="80%"] { --target-width: 80%; }
-.skill-progress[data-width="85%"] { --target-width: 85%; }
-.skill-progress[data-width="82%"] { --target-width: 82%; }
+/* Progress bar width definitions */
+.skill-progress[data-width="75%"] {
+    --target-width: 75%;
+}
+.skill-progress[data-width="78%"] {
+    --target-width: 78%;
+}
+.skill-progress[data-width="72%"] {
+    --target-width: 72%;
+}
+.skill-progress[data-width="70%"] {
+    --target-width: 70%;
+}
+.skill-progress[data-width="68%"] {
+    --target-width: 68%;
+}
+.skill-progress[data-width="65%"] {
+    --target-width: 65%;
+}
+.skill-progress[data-width="62%"] {
+    --target-width: 62%;
+}
+.skill-progress[data-width="60%"] {
+    --target-width: 60%;
+}
+.skill-progress[data-width="50%"] {
+    --target-width: 50%;
+}
 
 .skill-progress.animated {
     width: var(--target-width);
 }
 
-/* Skill Cards Section */
-.skill-cards-section {
+/* =====================================================
+   ADDITIONAL TECHNICAL SKILLS — COLLAPSIBLE (FIXED)
+   ===================================================== */
+
+/* ---- The wrapper stays full-width to match the layout ---- */
+.additional-skills-wrapper {
+    border: 1px solid rgba(25, 118, 210, 0.15);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     margin-top: 2rem;
-    width: 100%;
+    /* no max-width – content uses full width */
 }
 
-/* Collapsible Toggle Button */
-.skills-toggle-btn {
-    width: 100%;
-    padding: 1.2rem 2rem;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
+/* ---- ONLY THE BUTTON is shorter & centered ---- */
+.additional-skills-toggle {
+    width: auto;
+    max-width: 55%;
+    margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 0.8rem;
-    margin: 2rem 0;
+    padding: 1rem 1.8rem;
+    background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+    color: var(--dark-color);
+    border: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(25, 118, 210, 0.2);
     position: relative;
-    overflow: hidden;
+    border-radius: 12px;
 }
 
-.skills-toggle-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(25, 118, 210, 0.3);
+.additional-skills-toggle:hover {
+    background: linear-gradient(135deg, #e3f0ff 0%, #f5faff 100%);
 }
 
-.skills-toggle-btn:active {
-    transform: translateY(0);
+.additional-skills-toggle .toggle-text {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--primary-color);
 }
 
-.skills-toggle-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s ease;
+.additional-skills-toggle .toggle-text i {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
 }
 
-.skills-toggle-btn:hover::before {
-    left: 100%;
-}
-
-.skills-toggle-btn i:first-child {
-    font-size: 1.2rem;
+.additional-skills-toggle[aria-expanded="true"] .toggle-text i {
+    transform: rotate(45deg);
 }
 
 .toggle-icon {
     font-size: 1rem;
     transition: transform 0.3s ease;
+    color: var(--primary-color);
 }
 
-.skills-toggle-btn[aria-expanded="true"] .toggle-icon {
+.additional-skills-toggle[aria-expanded="true"] .toggle-icon {
     transform: rotate(180deg);
 }
 
-/* Collapsible Content Container */
-#techStackContent {
-    display: none;
+/* ---- CONTENT expands full-width (same as other sections) ---- */
+.additional-skills-content {
+    padding: 0 2rem 2rem 2rem;
+    max-height: 0;
     opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                opacity 0.4s ease,
+                padding 0.4s ease;
+    /* no width restriction – uses parent width */
 }
 
-#techStackContent.show {
-    display: grid;
+.additional-skills-content.open {
+    max-height: 2000px;
     opacity: 1;
-    transform: translateY(0);
-    animation: slideDown 0.4s ease-out forwards;
+    padding: 0 2rem 2rem 2rem;
 }
 
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.additional-skills-content .core-skills-section:last-child {
+    margin-bottom: 0;
 }
 
-/* Skill Cards Grid */
-.skill-cards-grid {
+/* =====================================================
+   TECHNOLOGY STACK & TOOLS (Static heading + visible cards)
+   ===================================================== */
+.skill-cards-section {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+/* Static heading (reuses .skills-subtitle) */
+.skill-cards-section .skills-subtitle {
+    margin-bottom: 1.8rem;
+}
+
+/* Grid for the 3 always‑visible cards */
+.tech-stack-visible {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* =====================================================
+   ADDITIONAL TECHNOLOGY STACK & TOOLS (Collapsible)
+   ===================================================== */
+.additional-tech-stack-wrapper {
+    border: 1px solid rgba(25, 118, 210, 0.15);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    margin-top: 1rem;
+}
+
+/* ---- The toggle button: short & centered ---- */
+.additional-tech-stack-toggle {
+    width: auto;
+    max-width: 55%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    padding: 1rem 1.8rem;
+    background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+    color: var(--dark-color);
+    border: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    position: relative;
+}
+
+.additional-tech-stack-toggle:hover {
+    background: linear-gradient(135deg, #e3f0ff 0%, #f5faff 100%);
+}
+
+.additional-tech-stack-toggle .toggle-text {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--primary-color);
+}
+
+.additional-tech-stack-toggle .toggle-text i {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.additional-tech-stack-toggle[aria-expanded="true"] .toggle-text i {
+    transform: rotate(45deg);
+}
+
+.additional-tech-stack-toggle .toggle-icon {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+    color: var(--primary-color);
+}
+
+.additional-tech-stack-toggle[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* ---- Content expands full-width ---- */
+.additional-tech-stack-content {
+    padding: 0 2rem 2rem 2rem;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                opacity 0.4s ease,
+                padding 0.4s ease;
+}
+
+.additional-tech-stack-content.open {
+    max-height: 3000px;
+    opacity: 1;
+    padding: 0 2rem 2rem 2rem;
+}
+
+.additional-tech-stack-content .skill-cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     width: 100%;
+    margin-top: 0;
 }
 
+/* ---- Individual Skill Cards (unchanged) ---- */
 .skill-card {
     background: white;
     border-radius: 15px;
@@ -509,9 +555,7 @@
 }
 
 .skill-card-tag {
-    background: linear-gradient(135deg, 
-        rgba(25, 118, 210, 0.1) 0%, 
-        rgba(25, 118, 210, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(25, 118, 210, 0.1) 0%, rgba(25, 118, 210, 0.05) 100%);
     color: var(--primary-color);
     padding: 0.5rem 1rem;
     border-radius: 25px;
@@ -528,155 +572,83 @@
     transform: scale(1.05);
 }
 
-/* Card Color Variants - UPDATED WITH AZURE THEME */
+/* ---- Card Color Variants ---- */
 .cloud-card .skill-card-icon {
-    color: #0078D4; /* Azure blue */
-    background: linear-gradient(135deg, 
-        rgba(0, 120, 212, 0.1) 0%, 
-        rgba(0, 120, 212, 0.05) 100%);
+    color: #0078D4;
+    background: linear-gradient(135deg, rgba(0, 120, 212, 0.1) 0%, rgba(0, 120, 212, 0.05) 100%);
 }
-
 .database-card .skill-card-icon {
     color: #0078D4;
-    background: linear-gradient(135deg, 
-        rgba(0, 120, 212, 0.1) 0%, 
-        rgba(0, 120, 212, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(0, 120, 212, 0.1) 0%, rgba(0, 120, 212, 0.05) 100%);
 }
-
 .testing-card .skill-card-icon {
-    color: #4CAF50; /* Green for testing */
-    background: linear-gradient(135deg, 
-        rgba(76, 175, 80, 0.1) 0%, 
-        rgba(76, 175, 80, 0.05) 100%);
+    color: #4CAF50;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%);
 }
-
 .security-card .skill-card-icon {
-    color: #dc3545; /* Red for security */
-    background: linear-gradient(135deg, 
-        rgba(220, 53, 69, 0.1) 0%, 
-        rgba(220, 53, 69, 0.05) 100%);
+    color: #dc3545;
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(220, 53, 69, 0.05) 100%);
 }
-
 .devops-card .skill-card-icon {
     color: #FF6B35;
-    background: linear-gradient(135deg, 
-        rgba(255, 107, 53, 0.1) 0%, 
-        rgba(255, 107, 53, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 107, 53, 0.05) 100%);
 }
-
 .tools-card .skill-card-icon {
-    color: #68217A; /* Visual Studio purple */
-    background: linear-gradient(135deg, 
-        rgba(104, 33, 122, 0.1) 0%, 
-        rgba(104, 33, 122, 0.05) 100%);
+    color: #68217A;
+    background: linear-gradient(135deg, rgba(104, 33, 122, 0.1) 0%, rgba(104, 33, 122, 0.05) 100%);
 }
-
 .web-card .skill-card-icon {
     color: #4CAF50;
-    background: linear-gradient(135deg, 
-        rgba(76, 175, 80, 0.1) 0%, 
-        rgba(76, 175, 80, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%);
 }
 
-/* Projects Notice */
-.projects-notice {
-    background: linear-gradient(135deg, #fff3cd 0%, #fff8e1 100%);
-    border: 1px solid #ffc107;
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    margin: 1.5rem 0 2rem 0;
-    animation: fadeInDown 0.6s ease-out;
-    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.1);
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.notice-content {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-}
-
-.notice-content i {
-    color: #ff9800;
-    font-size: 1.5rem;
-    margin-top: 0.2rem;
-    flex-shrink: 0;
-}
-
-.notice-text {
-    color: #856404;
-    line-height: 1.6;
-    font-size: 0.95rem;
-    word-wrap: break-word;
-}
-
-.notice-text strong {
-    color: #664d03;
-}
-
-/* Project Card Visibility */
-.project-card.hidden {
-    display: none !important;
-    opacity: 0;
-    transform: translateY(20px);
-    pointer-events: none;
-}
-
-.project-card.visible {
-    display: block !important;
-    opacity: 1;
-    transform: translateY(0);
-    animation: fadeInUp 0.6s ease-out forwards;
-}
-
-/* View More Container */
-.view-more-container {
+/* ---- "See More" Button (Tech Stack) ---- */
+.see-more-wrapper {
+    grid-column: 1 / -1;
     text-align: center;
-    margin: 3rem 0;
-    padding: 2rem 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    width: 100%;
-    box-sizing: border-box;
+    padding: 1rem 0 0.5rem 0;
 }
 
-#viewMoreBtn {
-    padding: 1rem 2.5rem;
-    font-size: 1.1rem;
+.see-more-btn {
+    padding: 0.8rem 2.2rem;
+    font-size: 1rem;
     font-weight: 600;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
-    border: none;
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
     gap: 0.8rem;
-    box-shadow: 0 6px 20px rgba(25, 118, 210, 0.2);
-    box-sizing: border-box;
+    background: white;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
 }
 
-#viewMoreBtn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(25, 118, 210, 0.3);
+.see-more-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(25, 118, 210, 0.25);
 }
 
-#viewMoreBtn:active {
-    transform: translateY(-1px);
+.see-more-btn:active {
+    transform: translateY(0);
 }
 
-#viewMoreBtn i {
-    font-size: 1.2rem;
+.see-more-btn i {
+    font-size: 1rem;
     transition: transform 0.3s ease;
 }
 
-#viewMoreBtn.active i {
+.see-more-btn.expanded i {
     transform: rotate(180deg);
 }
 
-/* Animations */
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -688,7 +660,7 @@
     }
 }
 
-@keyframes fadeInDown {
+@keyframes slideDown {
     from {
         opacity: 0;
         transform: translateY(-10px);
@@ -699,23 +671,18 @@
     }
 }
 
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-}
-
 @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }
 
-/* Image Modal */
+/* =====================================================
+   IMAGE MODAL
+   ===================================================== */
 .image-modal {
     position: fixed;
     top: 0;
@@ -743,78 +710,76 @@
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes scaleIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* =====================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE
    ===================================================== */
-
-/* Large tablets and small laptops (1100px and below) */
 @media (max-width: 1100px) {
     .about-content {
         gap: 3rem;
     }
-    
     .about-text h3 {
         font-size: 1.6rem;
     }
-    
     .about-text p {
         font-size: 1rem;
         line-height: 1.7;
     }
-    
     .progress-grid {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 1.5rem;
     }
-    
-    .skill-cards-grid {
+    .skill-cards-grid,
+    .tech-stack-visible {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    .additional-tech-stack-content .skill-cards-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
 }
 
-/* Tablets and landscape phones (991px and below) */
 @media (max-width: 991px) {
     .about-content {
         grid-template-columns: 1fr;
         gap: 2.5rem;
     }
-    
     .about-text {
         order: 2;
         width: 100%;
     }
-    
     .about-image {
         order: 1;
         width: 100%;
     }
-    
     .about-img {
         max-width: 350px;
         margin: 0 auto;
     }
-    
     .skills-container {
         padding: 2.5rem;
     }
 }
 
-/* Small tablets and large phones (768px and below) */
 @media (max-width: 768px) {
     .about-content {
         gap: 2rem;
@@ -823,266 +788,152 @@
         display: flex;
         flex-direction: column;
     }
-    
     .about-text h3 {
         font-size: 1.5rem;
         margin-bottom: 1rem;
         text-align: center;
     }
-    
     .about-text p {
         font-size: 1rem;
         line-height: 1.7;
         margin-bottom: 1rem;
         text-align: left;
     }
-    
     .about-img {
         max-width: 300px;
         margin: 0 auto;
     }
-    
     .skills-container {
         padding: 2rem;
         margin: 0;
         width: 100%;
     }
-    
     .skills-container h4 {
         font-size: 1.5rem;
     }
-    
     .skills-subtitle {
         font-size: 1.2rem;
     }
-    
     .progress-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
         width: 100%;
     }
-    
-    .skill-cards-grid {
+    .skill-cards-grid,
+    .tech-stack-visible,
+    .additional-tech-stack-content .skill-cards-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
         width: 100%;
     }
-    
     .skill-name {
         font-size: 1rem;
         flex-wrap: wrap;
     }
-    
     .skill-card {
         padding: 1.5rem;
         width: 100%;
         box-sizing: border-box;
     }
-    
     .skill-card-icon {
         width: 60px;
         height: 60px;
         font-size: 2rem;
     }
-    
-    .education-info {
-        padding: 1.5rem;
-        margin: 1.5rem 0;
+
+    /* ---- Additional skills toggle button: wider on tablets ---- */
+    .additional-skills-toggle,
+    .additional-tech-stack-toggle {
+        max-width: 80%;
+        padding: 0.9rem 1.5rem;
+        font-size: 0.95rem;
     }
-    
-    .community-engagement {
-        padding: 1.2rem;
+    .additional-skills-content,
+    .additional-tech-stack-content {
+        padding: 0 1.5rem 1.5rem 1.5rem;
     }
-    
-    .skills-toggle-btn {
-        padding: 1rem 1.5rem;
-        font-size: 1rem;
-    }
-    
-    .skills-toggle-btn i:first-child {
-        font-size: 1rem;
-    }
-    
-    .projects-notice {
-        padding: 1rem;
-        margin: 1rem 0 1.5rem 0;
-    }
-    
-    .notice-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.5rem;
-    }
-    
-    .view-more-container {
-        margin: 2rem 0;
-        padding: 1.5rem 0;
-    }
-    
-    #viewMoreBtn {
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-        width: 90%;
-        max-width: 300px;
-        justify-content: center;
+    .additional-skills-content.open,
+    .additional-tech-stack-content.open {
+        padding: 0 1.5rem 1.5rem 1.5rem;
     }
 }
 
-/* Mobile phones (480px and below) */
 @media (max-width: 480px) {
     .about-content {
         gap: 1.5rem;
         margin-bottom: 2rem;
     }
-    
     .about-text h3 {
         font-size: 1.3rem;
     }
-    
     .about-text p {
         font-size: 0.95rem;
         line-height: 1.6;
         text-align: left;
     }
-    
     .about-img {
         max-width: 280px;
     }
-    
     .skills-container {
         padding: 1.5rem;
     }
-    
     .skills-container h4 {
         font-size: 1.3rem;
     }
-    
     .skills-subtitle {
         font-size: 1.1rem;
         margin-bottom: 1.2rem;
     }
-    
     .skill-name {
         font-size: 0.95rem;
     }
-    
     .skill-name i {
         font-size: 1.1rem;
     }
-    
     .skill-header {
         flex-wrap: wrap;
         gap: 0.5rem;
     }
-    
     .skill-percentage {
         margin-left: 0;
         font-size: 0.9rem;
         padding: 0.2rem 0.6rem;
     }
-    
     .skill-bar {
         height: 10px;
     }
-    
     .skill-card {
         padding: 1.2rem;
     }
-    
     .skill-card-icon {
         width: 50px;
         height: 50px;
         font-size: 1.8rem;
         margin-bottom: 1rem;
     }
-    
     .skill-card-content h6 {
         font-size: 1.1rem;
         margin-bottom: 0.8rem;
     }
-    
     .skill-card-tag {
         padding: 0.4rem 0.8rem;
         font-size: 0.85rem;
     }
-    
-    .education-detail {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-    
-    .education-status {
-        align-self: flex-start;
-    }
-    
-    .skills-toggle-btn {
-        padding: 0.9rem 1.2rem;
-        font-size: 0.9rem;
-    }
-}
 
-/* Extra small devices (360px and below) */
-@media (max-width: 360px) {
-    .about-text p {
-        font-size: 0.9rem;
-    }
-    
-    .about-img {
+    /* ---- Additional toggles: full width on phones ---- */
+    .additional-skills-toggle,
+    .additional-tech-stack-toggle {
         max-width: 100%;
-    }
-    
-    .skills-container {
-        padding: 1rem;
-    }
-    
-    .progress-grid {
-        gap: 0.8rem;
-    }
-    
-    .skill-card {
-        padding: 1rem;
-    }
-    
-    .skill-card-tag {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.8rem;
-    }
-    
-    .skill-name {
+        border-radius: 10px;
+        padding: 0.8rem 1.2rem;
         font-size: 0.9rem;
     }
-    
-    .skill-percentage {
-        font-size: 0.8rem;
+    .additional-skills-content,
+    .additional-tech-stack-content {
+        padding: 0 1.2rem 1.2rem 1.2rem;
     }
-}
-
-/* Landscape mode specific fixes */
-@media (max-height: 500px) and (orientation: landscape) {
-    .about-content {
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
+    .additional-skills-content.open,
+    .additional-tech-stack-content.open {
+        padding: 0 1.2rem 1.2rem 1.2rem;
     }
-    
-    .about-text {
-        order: 1;
-    }
-    
-    .about-image {
-        order: 2;
-    }
-    
-    .about-img {
-        max-width: 250px;
-    }
-    
-    .skills-container {
-        padding: 1.5rem;
-    }
-}
-
-/* Ensure all elements have proper box sizing */
-* {
-    box-sizing: border-box;
 }
