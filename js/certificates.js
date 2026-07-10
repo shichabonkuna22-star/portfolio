@@ -1,17 +1,22 @@
 // Certificates Section Functionality
+
 class CertificatesManager {
     constructor() {
         this.modal = document.getElementById('certificateModal');
         this.certificates = {
+            // AWS Certifications
+            'aws-ai-practitioner': 'documents/AWSaiPractitionerCertificate.pdf',
+            'aws-cloud-practitioner': 'documents/AWSCloudPractitionerCertificate.pdf',
+
+            // Oracle Certifications
+            'oci-foundations': 'documents/OCIFoundationsCertificate.pdf',
+            'oci-ai': 'documents/OCIAIFoundationsCertificate.pdf',
+            'oci-architect': 'documents/OCIArchitectAssociateCertificate.pdf',
+            'oci-migration': 'documents/OCIMigrationArchitectCertificate.pdf',
+
+            // Cisco Certifications
             'networking-basics': 'documents/Networking_Basics_certificate.pdf',
-            'networking-devices': 'documents/Networking_Devices_and_Initial_Configuration_certificate.pdf',
-            'network-addressing': 'documents/Network_Addressing_and_Basic_Troubleshooting_certificate.pdf',
-            'network-support': 'documents/Network_Support_and_Security_certificate.pdf',
-            'network-technician': 'documents/Network_Technician_Career_Path_certificate.pdf',
-            'oci-foundations': 'documents/Oracle_Cloud_Infrastructure_2025_Certified_Foundations_Associate_Certificate.pdf',
-            'oci-ai': 'documents/Oracle_Cloud_Infrastructure_2025_Certified_AI_Foundations_Associate_Certificate.pdf',
-            'oci-architect': 'documents/Certified_Architect_Associate_Certificate.pdf',
-            'oci-migration': 'documents/Migration_Architect_Certified_Professional_Certificate.pdf'
+            'network-technician': 'documents/Network_Technician_Career_Path_certificate.pdf'
         };
         this.init();
     }
@@ -66,7 +71,10 @@ class CertificatesManager {
         const certificatePath = this.certificates[certId];
         if (certificatePath) {
             const modalTitle = this.modal.querySelector('#modalTitle');
-            const certificateName = document.querySelector(`[data-cert="${certId}"]`).closest('.certificate-item').querySelector('h4').textContent;
+            const certificateName = document.querySelector(`[data-cert="${certId}"]`)
+                .closest('.certificate-item')
+                .querySelector('h4')
+                .textContent;
             modalTitle.textContent = certificateName;
             
             // Display PDF in modal
